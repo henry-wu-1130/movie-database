@@ -1,0 +1,88 @@
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { Header } from '../Header';
+import { createWrapper } from '@/test/utils';
+
+// Mock next/link
+vi.mock('next/link', () => ({
+  default: ({
+    children,
+    href,
+    'data-testid': testId,
+    className,
+  }: {
+    children: React.ReactNode;
+    href: string;
+    'data-testid'?: string;
+    className?: string;
+  }) => (
+    <a href={href} data-testid={testId} className={className}>
+      {children}
+    </a>
+  ),
+}));
+
+// Mock LanguageSelector component
+vi.mock('../LanguageSelector', () => ({
+  LanguageSelector: () => <div data-testid="language-selector">Language</div>,
+}));
+
+const mockRouter = { push: vi.fn() };
+
+// Mock next/navigation hooks
+vi.mock('next/navigation', () => ({
+  useRouter: () => mockRouter,
+  useSearchParams: () => ({
+    get: () => null,
+  }),
+  usePathname: () => '/search',
+}));
+
+// Mock movie query hook
+vi.mock('@/query', () => ({
+  useSearchMoviesQuery: () => ({
+    data: null,
+    isLoading: false,
+  }),
+}));
+
+describe('Header', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('renders navigation elements and handles search correctly', async () => {
+    // vi.mocked(useRouter).mockReturnValue(mockRouter);
+
+    render(<Header />, { wrapper: createWrapper() });
+
+    // Check if navigation elements are present
+    expect(screen.getByTestId('site-logo')).toBeInTheDocument();
+    expect(screen.getByTestId('watchlist-link')).toBeInTheDocument();
+    expect(screen.getByTestId('watchlist-link-mobile')).toBeInTheDocument();
+
+    // Verify search functionality
+    const searchInputs = screen.getAllByRole('searchbox');
+    expect(searchInputs).toHaveLength(2); // desktop and mobile
+
+    // Get the desktop search input (first one)
+    const searchInput = searchInputs[0];
+    expect(searchInput).toHaveAttribute('placeholder', '搜尋電影...');
+
+    // Test search form submission
+    await userEvent.type(searchInput, 'test movie');
+    await userEvent.keyboard('{Enter}');
+
+    expect(mockRouter.push).toHaveBeenCalledWith('/search?q=test%20movie');
+
+    // Verify the links have correct hrefs
+    expect(screen.getByTestId('site-logo')).toHaveAttribute('href', '/');
+
+    // Check both desktop and mobile watchlist links
+    const watchlistLinks = screen.getAllByTestId(/watchlist-link/);
+    watchlistLinks.forEach((link) => {
+      expect(link).toHaveAttribute('href', '/watchlist');
+    });
+  });
+});

@@ -1,0 +1,41 @@
+{
+  "common": {
+    "siteTitle": "Movie Database",
+    "language": "Language",
+    "systemLanguage": "System Language",
+    "movieLanguage": "Movie Language",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "noImage": "No Image"
+  },
+  "home": {
+    "popularMovies": "Popular Movies",
+    "nowPlaying": "Now Playing",
+    "upcomingMovies": "Upcoming Movies"
+  },
+  "movie": {
+    "releaseDate": "Release Date",
+    "rating": "Rating",
+    "overview": "Overview",
+    "cast": "Cast",
+    "director": "Director",
+    "genres": "Genres",
+    "error": "Error loading movie details",
+    "votes": "votes",
+    "videos": "Videos",
+    "moreVideos": "More Videos",
+    "reviews": "Reviews",
+    "readFullReview": "Read full review"
+  },
+  "watchlist": {
+    "add": "Add to Watchlist",
+    "remove": "Remove from Watchlist"
+  },
+  "search": {
+    "placeholder": "Search movies...",
+    "noResults": "No results found",
+    "error": "Error searching movies"
+  }
+}

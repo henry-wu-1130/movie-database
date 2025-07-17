@@ -1,0 +1,29 @@
+name: Auto Upgrade NPM Packages
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * 1' # 每週一 02:00 UTC
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Install npm-check-updates globally
+        run: npm install -g npm-check-updates
+
+      - name: Run upgrade script
+        run: bash scripts/update-separate.sh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,43 @@
+name: Test & Build
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npm run test
+      - run: npm run build
+
+      # Start server for Lighthouse CI
+      - name: Start local server
+        run: |
+          npm run build
+          npm run start & npx wait-on http://localhost:3000
+
+      # Run Lighthouse CI
+      - name: Run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.13.x
+          lhci autorun --collect.url=http://localhost:3000
+
+  lighthouseci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm install && npm install -g @lhci/cli@0.15.x
+      - run: npm run build
+      - run: lhci autorun

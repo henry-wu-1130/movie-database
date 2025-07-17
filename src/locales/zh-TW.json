@@ -1,0 +1,41 @@
+{
+  "common": {
+    "siteTitle": "電影資料庫",
+    "language": "語言",
+    "systemLanguage": "系統語言",
+    "movieLanguage": "電影語言",
+    "search": "搜尋",
+    "loading": "載入中...",
+    "error": "錯誤",
+    "retry": "重試",
+    "noImage": "無圖片"
+  },
+  "home": {
+    "popularMovies": "熱門電影",
+    "nowPlaying": "現正上映",
+    "upcomingMovies": "即將上映"
+  },
+  "movie": {
+    "releaseDate": "上映日期",
+    "rating": "評分",
+    "overview": "劇情簡介",
+    "cast": "演員",
+    "director": "導演",
+    "genres": "類型",
+    "error": "載入電影資訊時發生錯誤",
+    "votes": "票",
+    "videos": "影片",
+    "moreVideos": "更多影片",
+    "reviews": "評論",
+    "readFullReview": "閱讀完整評論"
+  },
+  "watchlist": {
+    "add": "加入待看清單",
+    "remove": "從待看清單移除"
+  },
+  "search": {
+    "placeholder": "搜尋電影...",
+    "noResults": "找不到相關結果",
+    "error": "搜尋時發生錯誤"
+  }
+}
