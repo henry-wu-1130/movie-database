@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
+    "@sentry/nextjs": "^9.40.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/postcss": "^4.1.11",
     "@tanstack/react-query": "^5.83.0",
