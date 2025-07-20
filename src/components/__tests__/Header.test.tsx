@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Header } from '../Header';
 import { createWrapper } from '@/test/utils';
+import { Header } from '../Header';
 
 // Mock next/link
 vi.mock('next/link', () => ({
@@ -37,6 +37,9 @@ vi.mock('next/navigation', () => ({
     get: () => null,
   }),
   usePathname: () => '/search',
+  useParams: () => ({
+    lng: 'en',
+  }),
 }));
 
 // Mock movie query hook
@@ -53,36 +56,27 @@ describe('Header', () => {
   });
 
   it('renders navigation elements and handles search correctly', async () => {
-    // vi.mocked(useRouter).mockReturnValue(mockRouter);
-
     render(<Header />, { wrapper: createWrapper() });
 
-    // Check if navigation elements are present
     expect(screen.getByTestId('site-logo')).toBeInTheDocument();
     expect(screen.getByTestId('watchlist-link')).toBeInTheDocument();
     expect(screen.getByTestId('watchlist-link-mobile')).toBeInTheDocument();
 
-    // Verify search functionality
     const searchInputs = screen.getAllByRole('searchbox');
     expect(searchInputs).toHaveLength(2); // desktop and mobile
 
-    // Get the desktop search input (first one)
     const searchInput = searchInputs[0];
-    expect(searchInput).toHaveAttribute('placeholder', '搜尋電影...');
-
-    // Test search form submission
+    expect(searchInput).toHaveAttribute('placeholder', 'search.placeholder');
     await userEvent.type(searchInput, 'test movie');
     await userEvent.keyboard('{Enter}');
 
-    expect(mockRouter.push).toHaveBeenCalledWith('/search?q=test%20movie');
+    expect(mockRouter.push).toHaveBeenCalledWith('/en/search?q=test%20movie');
 
-    // Verify the links have correct hrefs
-    expect(screen.getByTestId('site-logo')).toHaveAttribute('href', '/');
+    expect(screen.getByTestId('site-logo')).toHaveAttribute('href', '/en');
 
-    // Check both desktop and mobile watchlist links
     const watchlistLinks = screen.getAllByTestId(/watchlist-link/);
     watchlistLinks.forEach((link) => {
-      expect(link).toHaveAttribute('href', '/watchlist');
+      expect(link).toHaveAttribute('href', '/en/watchlist');
     });
   });
 });

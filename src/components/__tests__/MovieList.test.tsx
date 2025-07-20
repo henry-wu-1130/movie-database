@@ -1,10 +1,39 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { MovieList } from '../MovieList';
-import { Movie } from '@/types/tmdb';
+import { Movie, MovieResponse } from '@/types/tmdb';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { MovieList } from '../MovieList';
 
-// Mock MovieCard component
+const mockMovie: Movie = {
+  id: 1,
+  title: 'Test Movie 1',
+  poster_path: '/test1.jpg',
+  backdrop_path: '/test-backdrop.jpg',
+  release_date: '2023-01-01',
+  overview: 'Test overview 1',
+  vote_average: 8.5,
+  vote_count: 100,
+  popularity: 10.5,
+  original_language: 'en',
+  adult: false,
+  video: false,
+  genre_ids: [1, 2],
+};
+
+const mockMovies: MovieResponse = {
+  results: [
+    mockMovie,
+    {
+      ...mockMovie,
+      id: 2,
+      title: 'Test Movie 2',
+    },
+  ],
+  page: 1,
+  total_pages: 1,
+  total_results: 2,
+};
+
 vi.mock('../MovieCard', () => ({
   MovieCard: ({ movie }: { movie: Movie }) => (
     <div data-testid="movie-card">{movie.title}</div>
@@ -12,44 +41,7 @@ vi.mock('../MovieCard', () => ({
   MovieCardSkeleton: () => <div data-testid="movie-card-skeleton" />,
 }));
 
-type MovieResponse = {
-  results: Movie[];
-  page: number;
-  total_pages: number;
-  total_results: number;
-};
-
 describe('MovieList', () => {
-  const mockMovie: Movie = {
-    id: 1,
-    title: 'Test Movie 1',
-    poster_path: '/test1.jpg',
-    backdrop_path: '/test-backdrop.jpg',
-    release_date: '2023-01-01',
-    overview: 'Test overview 1',
-    vote_average: 8.5,
-    vote_count: 100,
-    popularity: 10.5,
-    original_language: 'en',
-    adult: false,
-    video: false,
-    genre_ids: [1, 2],
-  };
-
-  const mockMovies: MovieResponse = {
-    results: [
-      mockMovie,
-      {
-        ...mockMovie,
-        id: 2,
-        title: 'Test Movie 2',
-      },
-    ],
-    page: 1,
-    total_pages: 1,
-    total_results: 2,
-  };
-
   it('renders loading state', () => {
     render(
       <MovieList

@@ -15,10 +15,12 @@ export const useLanguageStore = create(
       movieLanguage: 'en',
       setSystemLanguage: (language: string) => {
         set({ systemLanguage: language });
+        
         // 發送自定義事件通知其他分頁
         const event = new CustomEvent('system-language-changed', {
           detail: { language },
         });
+        
         if (typeof window !== 'undefined') {
           window.dispatchEvent(event);
         }

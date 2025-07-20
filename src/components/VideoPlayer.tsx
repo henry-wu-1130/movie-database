@@ -30,6 +30,7 @@ export function VideoPlayer({ videoId, title }: VideoPlayerProps) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           className="w-full h-full"
+          data-testid="youtube-iframe"
         />
         <button
           onClick={() => setIsExpanded(true)}

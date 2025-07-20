@@ -1,28 +1,33 @@
-'use client'
+// TODO: 應該跟 components/ui/button 做整合
+'use client';
 
-import { useTranslation } from 'react-i18next'
-import { Movie } from '@/types/tmdb'
-import { useWatchlistStore } from '@/stores/watchlistStore'
-import '@/styles/liquid-glass.css'
+import { useT } from '@/app/i18n/client';
+import { Movie } from '@/types/tmdb';
+import { useWatchlistStore } from '@/stores/watchlistStore';
+import '@/styles/liquid-glass.css';
 
 type WatchlistButtonProps = {
-  movie: Movie
-  variant?: 'icon' | 'full'
-  className?: string
-}
+  movie: Movie;
+  variant?: 'icon' | 'full';
+  className?: string;
+};
 
-export function WatchlistButton({ movie, variant = 'full', className = '' }: WatchlistButtonProps) {
-  const { t } = useTranslation()
-  const { addMovie, removeMovie, isInWatchlist } = useWatchlistStore()
-  const isInList = isInWatchlist(movie.id)
+export function WatchlistButton({
+  movie,
+  variant = 'full',
+  className = '',
+}: WatchlistButtonProps) {
+  const { t } = useT('watchlist');
+  const { addMovie, removeMovie, isInWatchlist } = useWatchlistStore();
+  const isInList = isInWatchlist(movie.id);
 
   const handleClick = () => {
     if (isInList) {
-      removeMovie(movie.id)
+      removeMovie(movie.id);
     } else {
-      addMovie(movie)
+      addMovie(movie.id);
     }
-  }
+  };
 
   if (variant === 'icon') {
     return (
@@ -45,7 +50,7 @@ export function WatchlistButton({ movie, variant = 'full', className = '' }: Wat
           />
         </svg>
       </button>
-    )
+    );
   }
 
   return (
@@ -69,5 +74,5 @@ export function WatchlistButton({ movie, variant = 'full', className = '' }: Wat
       </svg>
       <span>{isInList ? t('watchlist.remove') : t('watchlist.add')}</span>
     </button>
-  )
+  );
 }

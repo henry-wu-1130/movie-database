@@ -8,7 +8,8 @@
     "loading": "Loading...",
     "error": "Error",
     "retry": "Retry",
-    "noImage": "No Image"
+    "noImage": "No Image",
+    "watchlist": "Watchlist"
   },
   "home": {
     "popularMovies": "Popular Movies",
@@ -31,11 +32,26 @@
   },
   "watchlist": {
     "add": "Add to Watchlist",
-    "remove": "Remove from Watchlist"
+    "remove": "Remove from Watchlist",
+    "title": "My Watchlist",
+    "empty": "Your watchlist is empty",
+    "page": "Page",
+    "previous": "Previous",
+    "next": "Next"
   },
   "search": {
     "placeholder": "Search movies...",
-    "noResults": "No results found",
-    "error": "Error searching movies"
+    "noResults": "No results found for",
+    "tryAgain": "Try searching for something else",
+    "resultsFor": "Search results for",
+    "loadingMore": "Loading more...",
+    "error": "Error loading search results"
+  },
+  "sort": {
+    "label": "Sort by:",
+    "popularity": "Popularity",
+    "vote_average": "Rating",
+    "release_date": "Release Date",
+    "original_title": "Title"
   }
 }

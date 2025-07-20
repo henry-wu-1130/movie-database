@@ -1,10 +1,8 @@
-import { expect, afterEach, afterAll, beforeAll, vi } from 'vitest';
+import { expect, vi } from 'vitest';
 import * as matchers from '@testing-library/jest-dom';
-import { server } from '../mocks/node';
 
 // 設置測試環境變數
 process.env.NEXT_PUBLIC_TMDB_API_READ_ACCESS_TOKEN = 'test-token';
-process.env.NEXT_PUBLIC_API_MOCKING = 'enabled';
 
 // 加入 jest-dom 的 matchers
 expect.extend(matchers);
@@ -22,17 +20,13 @@ class MockIntersectionObserver implements IntersectionObserver {
 
 global.IntersectionObserver = MockIntersectionObserver;
 
-beforeAll(() => {
-  // Enable the mocking in tests.
-  server.listen();
-});
+// Mock ResizeObserver for Headless UI components
+class MockResizeObserver {
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+}
 
-afterEach(() => {
-  // Reset any runtime handlers tests may use.
-  server.resetHandlers();
-});
+global.ResizeObserver = MockResizeObserver;
 
-afterAll(() => {
-  // Clean up once the tests are done.
-  server.close();
-});
+// 測試環境設置完成

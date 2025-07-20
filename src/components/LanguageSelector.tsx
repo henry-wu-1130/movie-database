@@ -1,18 +1,20 @@
 'use client';
 
 import { Fragment } from 'react';
+import { useRouter, usePathname, useParams } from 'next/navigation';
 import { Popover, Transition } from '@headlessui/react';
-import { useTranslation } from 'react-i18next';
 import { useLanguageStore } from '@/stores/languageStore';
+import { useT } from '@/app/i18n/client';
+import { languages } from '@/app/i18n/settings';
 
 const LANGUAGE_CODES = {
-  'en': 'EN',
+  en: 'EN',
   'zh-TW': 'ZH',
-  'ja': 'JA',
-  'ko': 'KO',
-  'es': 'ES',
-  'fr': 'FR',
-  'de': 'DE',
+  ja: 'JA',
+  ko: 'KO',
+  es: 'ES',
+  fr: 'FR',
+  de: 'DE',
 } as const;
 
 const SYSTEM_LANGUAGES = [
@@ -32,29 +34,23 @@ const MOVIE_LANGUAGES = [
 ] as const;
 
 export function LanguageSelector() {
-  const { t } = useTranslation();
+  const { t } = useT('common');
   const { systemLanguage, movieLanguage, setSystemLanguage, setMovieLanguage } =
     useLanguageStore();
 
-  const currentSystemLanguage = LANGUAGE_CODES[systemLanguage as keyof typeof LANGUAGE_CODES] || systemLanguage.toUpperCase();
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
+  const currentLng = params?.lng as string;
+
+  const currentSystemLanguage =
+    LANGUAGE_CODES[systemLanguage as keyof typeof LANGUAGE_CODES] ||
+    systemLanguage.toUpperCase();
 
   return (
     <Popover className="relative">
       <Popover.Button className="flex h-10 w-10 items-center justify-center bg-gray-800 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
         <span>{currentSystemLanguage}</span>
-        {/* <svg
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-          />
-        </svg> */}
       </Popover.Button>
 
       <Transition
@@ -66,7 +62,10 @@ export function LanguageSelector() {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <Popover.Panel static className="absolute right-0 z-20 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800 dark:ring-gray-700">
+        <Popover.Panel
+          static
+          className="absolute right-0 z-20 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800 dark:ring-gray-700"
+        >
           <Popover.Overlay className="fixed inset-0 z-10" />
           <div className="divide-y divide-gray-100 dark:divide-gray-700">
             <div className="p-4">
@@ -77,7 +76,20 @@ export function LanguageSelector() {
                 {SYSTEM_LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
-                    onClick={() => setSystemLanguage(lang.code)}
+                    onClick={() => {
+                      setSystemLanguage(lang.code);
+                      // 如果語言在支持的語言列表中，則更新 URL 路徑
+                      if (
+                        languages.includes(lang.code) &&
+                        lang.code !== currentLng
+                      ) {
+                        const newPathname = pathname.replace(
+                          `/${currentLng}`,
+                          `/${lang.code}`
+                        );
+                        router.push(newPathname);
+                      }
+                    }}
                     className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm ${
                       systemLanguage === lang.code
                         ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400'

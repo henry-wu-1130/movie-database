@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+- [i18n]多語系設定
+- [i18n]系統偵測使用者語言
+- [i18n]系統語言與電影翻譯語言分開
+- [i18n]系統切換語言的優化手段（React Query 的 invalidateQueries）
+- [測試]完整測試（單元測試、e2e 測試）
+- [抽象化]不過度抽象化
+- [效能]React Query cache 的優化手段
+- [效能]影片播放器最佳比例（aspect ratio）16/9
+- [效能]Zustand 結合 persist 儲存 watchlist, language
+- [效能]Sentry 監控
 
-## Getting Started
+- [效能]lightouse CI 及 pr comment 報告
+- [效能]埋 web-vitals 程式碼
+- [SEO]SEO / meta tags
+- [CI/CD]CI/CD
+- [設計]統一的元件設計（按鈕、電影卡、電影播放器）區分為 ui / components
+- [TypeScript]Zod TypeScript type check
+- [UI]movie card 下方標題以及年份的最小高度再縮小一點，且標題過長應該以 ... 結尾，hover 時再 tooltip 顯示完整標題
+- [測試]snapshot testing
+- [效能]vi.mock 有沒有一個最佳實踐？目前會不會一堆不必要的 mock？
 
-First, run the development server:
+msw mock server
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- npx msw init ./src --

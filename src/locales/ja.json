@@ -8,7 +8,8 @@
     "loading": "読み込み中...",
     "error": "エラー",
     "retry": "再試行",
-    "noImage": "画像なし"
+    "noImage": "画像なし",
+    "watchlist": "ウォッチリスト"
   },
   "home": {
     "popularMovies": "人気の映画",
@@ -31,11 +32,26 @@
   },
   "watchlist": {
     "add": "ウォッチリストに追加",
-    "remove": "ウォッチリストから削除"
+    "remove": "ウォッチリストから削除",
+    "title": "ウォッチリスト",
+    "empty": "ウォッチリストが空です",
+    "page": "ページ",
+    "previous": "前",
+    "next": "次"
   },
   "search": {
     "placeholder": "映画を検索...",
     "noResults": "検索結果がありません",
-    "error": "検索中にエラーが発生しました"
+    "tryAgain": "別のキーワードで検索してみてください",
+    "resultsFor": "検索結果：",
+    "loadingMore": "もっと読み込み中...",
+    "error": "検索結果の読み込み中にエラーが発生しました"
+  },
+  "sort": {
+    "label": "並び替え：",
+    "popularity": "人気度",
+    "vote_average": "評価",
+    "release_date": "公開日",
+    "original_title": "タイトル"
   }
 }

@@ -1,9 +1,26 @@
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { MovieCard } from '../MovieCard';
+import { screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Movie } from '@/types/tmdb';
+import { renderWithClient } from '@/test/utils';
+import i18n from 'i18next';
+import { MovieCard } from '../MovieCard';
 
-// Mock next/image
+const mockMovie: Movie = {
+  id: 1,
+  title: 'Test Movie',
+  poster_path: '/test-poster.jpg',
+  release_date: '2023-01-01',
+  overview: 'Test overview',
+  vote_average: 8.5,
+  backdrop_path: '/test-backdrop.jpg',
+  vote_count: 100,
+  popularity: 10.5,
+  original_language: 'en',
+  adult: false,
+  video: false,
+  genre_ids: [1, 2],
+};
+
 vi.mock('next/image', () => ({
   default: ({ src, alt }: { src: string; alt: string }) => {
     // eslint-disable-next-line @next/next/no-img-element
@@ -11,42 +28,37 @@ vi.mock('next/image', () => ({
   },
 }));
 
+vi.mock('next/navigation', () => ({
+  useParams: () => ({ lng: 'en' }),
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+  }),
+}));
+
 describe('MovieCard', () => {
-  const mockMovie: Movie = {
-    id: 1,
-    title: 'Test Movie',
-    poster_path: '/test-poster.jpg',
-    release_date: '2023-01-01',
-    overview: 'Test overview',
-    vote_average: 8.5,
-    backdrop_path: '/test-backdrop.jpg',
-    vote_count: 100,
-    popularity: 10.5,
-    original_language: 'en',
-    adult: false,
-    video: false,
-    genre_ids: [1, 2]
-  };
+  beforeEach(() => {
+    vi.clearAllMocks();
+    i18n.changeLanguage('en');
+  });
 
   it('renders movie information correctly', () => {
-    render(<MovieCard movie={mockMovie} />);
+    renderWithClient(<MovieCard movie={mockMovie} />);
 
-    // Check if the movie title is displayed
     expect(screen.getByText('Test Movie')).toBeDefined();
 
-    // Check if the year is displayed
     expect(screen.getByText('2023')).toBeDefined();
 
-    // Check if the rating is displayed
     expect(screen.getByText('8.5')).toBeDefined();
 
-    // Check if the movie poster is present with correct src
     const image = screen.getByAltText('Test Movie');
-    expect(image.getAttribute('src')).toBe('https://image.tmdb.org/t/p/w500/test-poster.jpg');
+    expect(image.getAttribute('src')).toBe(
+      'https://image.tmdb.org/t/p/w500/test-poster.jpg'
+    );
 
-    // Check if the link has the correct href
     const link = screen.getByRole('link');
-    expect(link.getAttribute('href')).toBe('/movie/1');
+    expect(link.getAttribute('href')).toBe('/en/movie/1');
   });
 
   it('handles missing release date', () => {
@@ -55,9 +67,8 @@ describe('MovieCard', () => {
       release_date: '',
     };
 
-    render(<MovieCard movie={movieWithoutDate} />);
-    
-    // Check if the movie renders without the year
+    renderWithClient(<MovieCard movie={movieWithoutDate} />);
+
     expect(screen.queryByText('2023')).toBeNull();
   });
 });

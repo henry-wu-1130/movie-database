@@ -4,7 +4,7 @@ import { MovieCardSkeleton } from './MovieCard';
 
 export function MovieListSkeleton() {
   return (
-    <div className="relative" role="status">
+    <div className="relative" role="status" data-testid="movie-skeleton">
       <div className="flex overflow-x-auto pb-6 px-4 sm:px-6 lg:px-8 gap-4 snap-x snap-mandatory custom-scrollbar">
         {Array.from({ length: 8 }).map((_, index) => (
           <div key={index} className="flex-none snap-start">

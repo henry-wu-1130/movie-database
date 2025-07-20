@@ -1,35 +1,35 @@
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-import { Movie } from '@/types/tmdb'
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface WatchlistStore {
-  movies: Movie[]
-  addMovie: (movie: Movie) => void
-  removeMovie: (movieId: number) => void
-  isInWatchlist: (movieId: number) => boolean
+  movieIds: number[];
+  addMovie: (movieId: number) => void;
+  removeMovie: (movieId: number) => void;
+  isInWatchlist: (movieId: number) => boolean;
 }
 
 export const useWatchlistStore = create<WatchlistStore>()(
   persist(
     (set, get) => ({
-      movies: [],
-      addMovie: (movie) => {
-        const { movies } = get()
-        if (!movies.some((m) => m.id === movie.id)) {
-          set({ movies: [...movies, movie] })
+      movieIds: [],
+      addMovie: (movieId) => {
+        const { movieIds } = get();
+        if (!movieIds.includes(movieId)) {
+          set({ movieIds: [...movieIds, movieId] });
         }
       },
       removeMovie: (movieId) => {
-        const { movies } = get()
-        set({ movies: movies.filter((m) => m.id !== movieId) })
+        const { movieIds } = get();
+        set({ movieIds: movieIds.filter((id) => id !== movieId) });
       },
       isInWatchlist: (movieId) => {
-        const { movies } = get()
-        return movies.some((m) => m.id === movieId)
+        const { movieIds } = get();
+        return movieIds.includes(movieId);
       },
     }),
     {
-      name: 'watchlist-storage'
+      name: 'watchlist-storage',
+      version: 1,
     }
   )
-)
+);

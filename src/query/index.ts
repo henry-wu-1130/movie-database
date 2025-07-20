@@ -1,17 +1,18 @@
 import {
-  MovieResponse,
-  MovieDetail,
-  MovieCredits,
-  MovieVideos,
-  MovieReviews,
-} from '@/types/tmdb';
-import * as tmdbApi from '@/services/tmdb';
-import {
   useQuery,
   useInfiniteQuery,
   type UseQueryOptions,
   type UseInfiniteQueryOptions,
 } from '@tanstack/react-query';
+import * as tmdbValidated from '@/services/tmdbValidated';
+import { z } from 'zod';
+import {
+  movieResponseSchema,
+  movieDetailSchema,
+  movieCreditsSchema,
+  movieVideosSchema,
+  movieReviewsSchema,
+} from '@/schemas/tmdb';
 
 export type TMDBOptions = {
   language?: string;
@@ -25,11 +26,14 @@ type MovieQueryOptions<TData> = Omit<
 
 const INITIAL_PAGE_PARAM = 1;
 
-type MovieInfiniteQueryOptions = Partial<
-  Omit<UseInfiniteQueryOptions<MovieResponse, Error>, 'queryKey' | 'queryFn'>
->;
+// 使用 Zod 類型推斷獲取類型
+type MovieResponse = z.infer<typeof movieResponseSchema>;
+type MovieDetail = z.infer<typeof movieDetailSchema>;
+type MovieCredits = z.infer<typeof movieCreditsSchema>;
+type MovieVideos = z.infer<typeof movieVideosSchema>;
+type MovieReviews = z.infer<typeof movieReviewsSchema>;
 
-// Popular Movies
+// 熱門電影查詢
 export function usePopularMoviesQuery(
   page = 1,
   language: string,
@@ -37,13 +41,12 @@ export function usePopularMoviesQuery(
 ) {
   return useQuery<MovieResponse, Error>({
     queryKey: ['tmdb', 'movies', 'popular', page, language],
-    queryFn: () =>
-      tmdbApi.getPopularMovies(page, language).then((res) => res.data),
+    queryFn: () => tmdbValidated.getPopularMovies(page, language),
     ...queryOptions,
   });
 }
 
-// Movie Details
+// 電影詳情查詢
 export function useMovieDetailsQuery(
   id: number,
   language: string,
@@ -51,13 +54,12 @@ export function useMovieDetailsQuery(
 ) {
   return useQuery<MovieDetail, Error>({
     queryKey: ['tmdb', 'movies', 'detail', id, language],
-    queryFn: () =>
-      tmdbApi.getMovieDetails(id, language).then((res) => res.data),
+    queryFn: () => tmdbValidated.getMovieDetails(id, language),
     ...queryOptions,
   });
 }
 
-// Movie Credits
+// 電影演職員表查詢
 export function useMovieCreditsQuery(
   id: number,
   language: string,
@@ -65,13 +67,12 @@ export function useMovieCreditsQuery(
 ) {
   return useQuery<MovieCredits, Error>({
     queryKey: ['tmdb', 'movies', 'credits', id, language],
-    queryFn: () =>
-      tmdbApi.getMovieCredits(id, language).then((res) => res.data),
+    queryFn: () => tmdbValidated.getMovieCredits(id, language),
     ...queryOptions,
   });
 }
 
-// Movie Videos
+// 電影視頻查詢
 export function useMovieVideosQuery(
   id: number,
   language: string,
@@ -79,12 +80,12 @@ export function useMovieVideosQuery(
 ) {
   return useQuery<MovieVideos, Error>({
     queryKey: ['tmdb', 'movies', 'videos', id, language],
-    queryFn: () => tmdbApi.getMovieVideos(id, language).then((res) => res.data),
+    queryFn: () => tmdbValidated.getMovieVideos(id, language),
     ...queryOptions,
   });
 }
 
-// Movie Reviews
+// 電影評論查詢
 export function useMovieReviewsQuery(
   id: number,
   page: number,
@@ -93,13 +94,12 @@ export function useMovieReviewsQuery(
 ) {
   return useQuery<MovieReviews, Error>({
     queryKey: ['tmdb', 'movies', 'reviews', id, page, language],
-    queryFn: () =>
-      tmdbApi.getMovieReviews(id, page, language).then((res) => res.data),
+    queryFn: () => tmdbValidated.getMovieReviews(id, page, language),
     ...queryOptions,
   });
 }
 
-// Search Movies
+// 電影搜索查詢
 export function useSearchMoviesQuery(
   query: string,
   page = 1,
@@ -107,37 +107,35 @@ export function useSearchMoviesQuery(
   queryOptions?: MovieQueryOptions<MovieResponse>
 ) {
   return useQuery<MovieResponse, Error>({
-    queryKey: ['tmdb', 'movies', 'search', query, page, language],
-    queryFn: () =>
-      tmdbApi.searchMovies(query, page, language).then((res) => res.data),
-    enabled: !!query,
+    queryKey: ['tmdb', 'search', 'movie', query, page, language],
+    queryFn: () => tmdbValidated.searchMovies(query, page, language),
     ...queryOptions,
+    enabled: !!query && query.length > 0,
   });
 }
 
-// Infinite Search Movies
+// 無限滾動電影搜索查詢
 export function useInfiniteSearchMoviesQuery(
   query: string,
   language: string,
-  queryOptions?: MovieInfiniteQueryOptions
+  queryOptions?: Omit<
+    UseInfiniteQueryOptions<MovieResponse, Error, number>,
+    'queryKey' | 'queryFn'
+  >
 ) {
-  return useInfiniteQuery<MovieResponse, Error, MovieResponse>({
-    queryKey: ['tmdb', 'movies', 'search', 'infinite', query, language],
-    queryFn: async ({ pageParam }) => {
-      const page =
-        typeof pageParam === 'number' ? pageParam : INITIAL_PAGE_PARAM;
-      const response = await tmdbApi.searchMovies(query, page, language);
-      return response.data;
-    },
+  return useInfiniteQuery<MovieResponse, Error, number>({
+    queryKey: ['tmdb', 'search', 'movie', 'infinite', query, language],
+    queryFn: ({ pageParam = INITIAL_PAGE_PARAM }) =>
+      tmdbValidated.searchMovies(query, pageParam as number, language),
     initialPageParam: INITIAL_PAGE_PARAM,
     getNextPageParam: (lastPage) =>
       lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-    enabled: !!query,
     ...queryOptions,
+    enabled: !!query && query.length > 0,
   });
 }
 
-// Now Playing Movies
+// 正在上映電影查詢
 export function useNowPlayingMoviesQuery(
   page = 1,
   language: string,
@@ -145,13 +143,12 @@ export function useNowPlayingMoviesQuery(
 ) {
   return useQuery<MovieResponse, Error>({
     queryKey: ['tmdb', 'movies', 'now_playing', page, language],
-    queryFn: () =>
-      tmdbApi.getNowPlaying(page, language).then((res) => res.data),
+    queryFn: () => tmdbValidated.getNowPlaying(page, language),
     ...queryOptions,
   });
 }
 
-// Upcoming Movies
+// 即將上映電影查詢
 export function useUpcomingMoviesQuery(
   page = 1,
   language: string,
@@ -159,10 +156,10 @@ export function useUpcomingMoviesQuery(
 ) {
   return useQuery<MovieResponse, Error>({
     queryKey: ['tmdb', 'movies', 'upcoming', page, language],
-    queryFn: () => tmdbApi.getUpcoming(page, language).then((res) => res.data),
+    queryFn: () => tmdbValidated.getUpcoming(page, language),
     ...queryOptions,
   });
 }
 
-// Helper function for image URLs
-export const getImageUrl = tmdbApi.getImageUrl;
+// 圖片 URL 輔助函數
+export const getImageUrl = tmdbValidated.getImageUrl;

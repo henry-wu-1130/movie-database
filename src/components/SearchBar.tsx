@@ -1,14 +1,21 @@
 'use client';
 
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import {
+  useRouter,
+  useSearchParams,
+  usePathname,
+  useParams,
+} from 'next/navigation';
 import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useT } from '@/app/i18n/client';
 import { useSearchMoviesQuery } from '@/query';
 import { useLanguageStore } from '@/stores/languageStore';
 
 export function SearchBar() {
-  const { t } = useTranslation();
+  const { t } = useT('search');
+  const params = useParams();
+  const lng = params?.lng as string;
 
   const router = useRouter();
   const pathname = usePathname();
@@ -35,19 +42,21 @@ export function SearchBar() {
 
   // Update URL when debounced query changes
   useEffect(() => {
-    if (debouncedQuery.trim() && pathname === '/search') {
-      router.push(`/search?q=${encodeURIComponent(debouncedQuery.trim())}`);
+    if (debouncedQuery.trim() && pathname.includes('/search')) {
+      router.push(
+        `/${lng}/search?q=${encodeURIComponent(debouncedQuery.trim())}`
+      );
     }
-  }, [debouncedQuery, router, pathname]);
+  }, [debouncedQuery, router, pathname, lng]);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
       if (query.trim()) {
-        router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+        router.push(`/${lng}/search?q=${encodeURIComponent(query.trim())}`);
       }
     },
-    [query, router]
+    [query, router, lng]
   );
 
   return (

@@ -4,7 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
-import { useTranslation } from 'react-i18next';
+import { useParams } from 'next/navigation';
+import { useT } from '@/app/i18n/client';
 import { Movie } from '@/types/tmdb';
 import _get from 'lodash/get';
 import { WatchlistButton } from './WatchlistButton';
@@ -48,7 +49,11 @@ export function MovieCardSkeleton({
 }
 
 export function MovieCard({ movie, variant = 'fixed' }: MovieCardProps) {
-  const { t } = useTranslation();
+  // 使用自定義的 useT hook 以取得翻譯函數
+  const { t } = useT('movie');
+  // 取得目前語言參數
+  const params = useParams();
+  const lng = params?.lng as string;
   const releaseDate = _get(movie, 'release_date');
   const year = releaseDate ? new Date(releaseDate).getFullYear() : null;
 
@@ -57,7 +62,7 @@ export function MovieCard({ movie, variant = 'fixed' }: MovieCardProps) {
       className={`${CARD_STYLES.wrapper.base} ${CARD_STYLES.wrapper[variant]} group`}
     >
       <div className="relative w-full h-full">
-        <Link href={`/movie/${movie.id}`}>
+        <Link href={`/${lng}/movie/${movie.id}`}>
           <div className={CARD_STYLES.poster}>
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

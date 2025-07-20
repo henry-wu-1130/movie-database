@@ -8,7 +8,8 @@
     "loading": "載入中...",
     "error": "錯誤",
     "retry": "重試",
-    "noImage": "無圖片"
+    "noImage": "無圖片",
+    "watchlist": "待看清單"
   },
   "home": {
     "popularMovies": "熱門電影",
@@ -31,11 +32,26 @@
   },
   "watchlist": {
     "add": "加入待看清單",
-    "remove": "從待看清單移除"
+    "remove": "從待看清單移除",
+    "title": "我的待看清單",
+    "empty": "您的待看清單是空的",
+    "page": "頁",
+    "previous": "前",
+    "next": "下"
   },
   "search": {
     "placeholder": "搜尋電影...",
-    "noResults": "找不到相關結果",
-    "error": "搜尋時發生錯誤"
+    "noResults": "找不到與以下關鍵字相關的結果",
+    "tryAgain": "請嘗試其他關鍵字",
+    "resultsFor": "搜尋結果：",
+    "loadingMore": "載入更多...",
+    "error": "載入搜尋結果時發生錯誤"
+  },
+  "sort": {
+    "label": "排序：",
+    "popularity": "熱門程度",
+    "vote_average": "評分",
+    "release_date": "上映日期",
+    "original_title": "片名"
   }
 }

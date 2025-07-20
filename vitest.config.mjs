@@ -18,7 +18,6 @@ export default defineConfig({
         'src/**/*.d.ts',
         'src/**/types.ts',
         'src/**/*.stories.{js,jsx,ts,tsx}',
-        'src/mocks/**',
       ],
     },
     alias: {

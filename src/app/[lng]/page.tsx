@@ -1,7 +1,7 @@
 'use client';
 
 import { MovieList } from '@/components/MovieList';
-import { useTranslation } from 'react-i18next';
+import { useT } from '@/app/i18n/client';
 import {
   usePopularMoviesQuery,
   useNowPlayingMoviesQuery,
@@ -10,7 +10,8 @@ import {
 import { useLanguageStore } from '@/stores/languageStore';
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { t } = useT('home');
+
   const { movieLanguage } = useLanguageStore();
 
   const popularMoviesQuery = usePopularMoviesQuery(1, movieLanguage);

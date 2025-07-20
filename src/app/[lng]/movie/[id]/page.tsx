@@ -6,15 +6,15 @@ import {
   useMovieCreditsQuery,
   useMovieVideosQuery,
   useMovieReviewsQuery,
-} from '@/query/index';
+} from '@/query';
 import Image from 'next/image';
 import { useLanguageStore } from '@/stores/languageStore';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { WatchlistButton } from '@/components/WatchlistButton';
-import { useTranslation } from 'react-i18next';
+import { useT } from '@/app/i18n/client';
 
 export default function MoviePage() {
-  const { t } = useTranslation();
+  const { t } = useT('movie', {});
   const params = useParams();
   const { movieLanguage } = useLanguageStore();
   const movieId = Number(params.id);
@@ -23,14 +23,17 @@ export default function MoviePage() {
     isLoading: isLoadingMovie,
     error: movieError,
   } = useMovieDetailsQuery(movieId, movieLanguage);
+
   const { data: credits, isLoading: isLoadingCredits } = useMovieCreditsQuery(
     movieId,
     movieLanguage
   );
+
   const { data: videos, isLoading: isLoadingVideos } = useMovieVideosQuery(
     movieId,
     movieLanguage
   );
+
   const { data: reviews, isLoading: isLoadingReviews } = useMovieReviewsQuery(
     movieId,
     1,
@@ -44,7 +47,7 @@ export default function MoviePage() {
     isLoadingReviews
   ) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8" data-testid="movie-skeleton">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Poster Skeleton */}
           <div className="w-full md:w-1/3">
