@@ -89,7 +89,6 @@ describe('MovieList', () => {
       />
     );
 
-    // Check if both movies are rendered
     expect(screen.getByText('Test Movie 1')).toBeDefined();
     expect(screen.getByText('Test Movie 2')).toBeDefined();
     expect(screen.getAllByTestId('movie-card').length).toBe(2);

@@ -11,7 +11,7 @@ import { useParams } from 'next/navigation';
 export function Header() {
   const { t } = useT('common');
   const [isOpen, setIsOpen] = useState(false);
-  // 取得目前語言參數
+
   const params = useParams();
   const lng = params?.lng as string;
   return (

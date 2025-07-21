@@ -1,0 +1,58 @@
+{
+  "adult": false,
+  "backdrop_path": "/backdrop_path.jpg",
+  "belongs_to_collection": null,
+  "budget": 200000000,
+  "genres": [
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    }
+  ],
+  "homepage": "https://example.com",
+  "id": 299534,
+  "imdb_id": "tt4154796",
+  "original_language": "en",
+  "original_title": "Test Movie",
+  "overview": "This is a test movie overview for Cypress testing.",
+  "popularity": 100.5,
+  "poster_path": "/poster_path.jpg",
+  "production_companies": [
+    {
+      "id": 420,
+      "logo_path": "/logo.png",
+      "name": "Test Studio",
+      "origin_country": "US"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "release_date": "2023-01-01",
+  "revenue": 2000000000,
+  "runtime": 120,
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "Released",
+  "tagline": "Test tagline",
+  "title": "Test Movie",
+  "video": false,
+  "vote_average": 8.5,
+  "vote_count": 10000
+}

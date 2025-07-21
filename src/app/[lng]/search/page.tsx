@@ -32,8 +32,6 @@ function SearchPageComponent() {
     fetchNextPage,
   } = useInfiniteSearchMoviesQuery(query, movieLanguage);
 
-  // 獲取所有電影數據
-  // 使用正確的類型定義處理 useInfiniteQuery 返回的數據結構
   const infiniteData = data as InfiniteData<MovieResponse> | undefined;
   const movies = infiniteData
     ? _flatMap(infiniteData.pages, (page: MovieResponse, pageIndex: number) =>
@@ -44,14 +42,12 @@ function SearchPageComponent() {
       )
     : [];
 
-  // 當 inView 變化時加載更多數據
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
 
-  // 加載中狀態
   if (isLoading) {
     return (
       <div className="space-y-8 p-6" data-testid="loading-skeleton">
@@ -71,7 +67,6 @@ function SearchPageComponent() {
     );
   }
 
-  // 錄取錯誤狀態
   if (error) {
     return (
       <div className="flex justify-center py-8">
@@ -80,7 +75,6 @@ function SearchPageComponent() {
     );
   }
 
-  // 無結果狀態
   if (movies.length === 0) {
     return (
       <div className="flex flex-col items-center py-8 space-y-4">
@@ -100,8 +94,10 @@ function SearchPageComponent() {
         </h1>
       </div>
 
-      {/* 電影網格 */}
-      <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
+      <div
+        className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(180px,1fr))]"
+        data-testid="movie-list"
+      >
         {_map(movies, (movie: Movie & { key?: string }) => (
           <MovieCard
             key={movie.key || movie.id}
@@ -111,7 +107,6 @@ function SearchPageComponent() {
         ))}
       </div>
 
-      {/* 加載更多區域 */}
       <div ref={loadMoreRef} className="py-4">
         {isFetchingNextPage ? (
           <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">

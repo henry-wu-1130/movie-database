@@ -27,13 +27,11 @@ export function SearchBar() {
   const { data } = useSearchMoviesQuery(debouncedQuery, 1, movieLanguage);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Update query when URL changes
   useEffect(() => {
     setQuery(defaultQuery);
     setDebouncedQuery(defaultQuery);
   }, [defaultQuery]);
 
-  // Debounce query updates
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedQuery(query);
@@ -41,7 +39,6 @@ export function SearchBar() {
     return () => clearTimeout(timer);
   }, [query]);
 
-  // Update URL when debounced query changes
   useEffect(() => {
     if (debouncedQuery.trim() && pathname.includes('/search')) {
       router.push(

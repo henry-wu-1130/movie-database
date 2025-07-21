@@ -141,13 +141,12 @@ export default function WatchlistPage() {
         </div>
 
         {movieIds.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-12" data-testid="empty-watchlist">
             <p className="text-gray-500 dark:text-gray-400">
               {t('watchlist.empty')}
             </p>
           </div>
         ) : isLoading ? (
-          // 顯示加載中的骨架屏
           <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
             {currentPageMovieIds.map((id) => (
               <div key={id} className="flex flex-col gap-2">
@@ -165,7 +164,6 @@ export default function WatchlistPage() {
               ))}
             </div>
 
-            {/* 分頁控制 */}
             {totalPages > 1 && (
               <div className="flex justify-center items-center gap-2 mt-8">
                 <Button

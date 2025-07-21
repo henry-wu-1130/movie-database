@@ -78,7 +78,7 @@ export function LanguageSelector() {
                     key={lang.code}
                     onClick={() => {
                       setSystemLanguage(lang.code);
-                      // 如果語言在支持的語言列表中，則更新 URL 路徑
+
                       if (
                         languages.includes(lang.code) &&
                         lang.code !== currentLng

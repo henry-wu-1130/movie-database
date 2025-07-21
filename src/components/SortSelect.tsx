@@ -13,9 +13,7 @@ import { useT } from '@/app/i18n/client';
 
 interface SortSelectProps {
   className?: string;
-  // 排序模式：'search' 用於搜尋頁，'watchlist' 用於待看清單頁
   mode?: 'search' | 'watchlist';
-  // 是否在 URL 中更新排序參數
   updateUrl?: boolean;
 }
 
@@ -24,13 +22,13 @@ type SortOptionDisplay = {
   defaultDirection: SortDirection;
 };
 
-export default function SortSelect({ 
-  className = '', 
-  mode = 'watchlist', // 默認為待看清單模式
-  updateUrl = false // 默認不更新 URL
+export default function SortSelect({
+  className = '',
+  mode = 'watchlist',
+  updateUrl = false,
 }: SortSelectProps) {
   const { t } = useT('sort', {});
-  
+
   // Define sort options with translation keys
   const sortOptions: SortOptionDisplay[] = [
     { field: 'popularity', defaultDirection: 'desc' },
@@ -38,7 +36,8 @@ export default function SortSelect({
     { field: 'release_date', defaultDirection: 'desc' },
     { field: 'original_title', defaultDirection: 'asc' },
   ];
-  const { searchSort, setSearchSort, watchlistSort, setWatchlistSort } = useSortStore();
+  const { searchSort, setSearchSort, watchlistSort, setWatchlistSort } =
+    useSortStore();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -76,7 +75,7 @@ export default function SortSelect({
   const currentSortOption =
     sortOptions.find((option) => option.field === currentField) ||
     sortOptions[0];
-    
+
   // Get label for the current sort option
   const getOptionLabel = (field: SortField) => {
     return t(`sort.${field}`);
@@ -107,7 +106,7 @@ export default function SortSelect({
       // 使用 replace 而不是 push 來避免在歷史記錄中創建多個條目
       router.replace(`${pathname}?${params.toString()}`);
     }
-    
+
     // 滾動回頁面頂部，提供更好的用戶體驗
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -127,7 +126,9 @@ export default function SortSelect({
   // Desktop version
   const renderDesktopSort = () => (
     <div className="hidden md:flex items-center space-x-4">
-      <span className="text-gray-600 dark:text-gray-300">{t('sort.label')}</span>
+      <span className="text-gray-600 dark:text-gray-300">
+        {t('sort.label')}
+      </span>
       <div className="flex space-x-2">
         {sortOptions.map((option) => {
           const isActive = currentField === option.field;

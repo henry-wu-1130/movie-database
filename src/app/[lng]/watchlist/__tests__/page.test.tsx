@@ -4,12 +4,10 @@ import { renderWithClient } from '@/test/utils';
 import { QueryObserverSuccessResult } from '@tanstack/react-query';
 import WatchlistPage from '../page';
 
-// Mock zustand store
 vi.mock('@/stores/watchlistStore', () => ({
   useWatchlistStore: () => mockData,
 }));
 
-// Mock next/navigation
 vi.mock('next/navigation', () => ({
   useParams: () => ({ lng: 'en' }),
   useSearchParams: () => ({
@@ -22,7 +20,6 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/en/watchlist',
 }));
 
-// Mock movie data
 const mockMovieData = vitest.hoisted(() => [
   {
     id: 1,
@@ -42,7 +39,6 @@ const mockMovieData = vitest.hoisted(() => [
   },
 ]);
 
-// Mock watchlist store data
 const mockData = vitest.hoisted(() => ({
   movieIds: [1, 2],
   addMovie: vi.fn(),
@@ -50,7 +46,6 @@ const mockData = vitest.hoisted(() => ({
   isInWatchlist: vi.fn(),
 }));
 
-// Mock React Query's useQueries hook
 vi.mock('@tanstack/react-query', async () => {
   const actual = await vi.importActual('@tanstack/react-query');
   return {

@@ -136,7 +136,9 @@ export default function MoviePage() {
 
           {/* Details */}
           <div className="flex-1">
-            <h1 className="text-4xl font-bold mb-4">{movie.title}</h1>
+            <h1 className="text-4xl font-bold mb-4" data-testid="movie-title">
+              {movie.title}
+            </h1>
 
             {movie.release_date && (
               <p className="text-gray-300 mb-4">
@@ -163,7 +165,10 @@ export default function MoviePage() {
                 <h2 className="text-xl font-semibold mb-2">
                   {t('movie.overview')}
                 </h2>
-                <p className="text-gray-300 leading-relaxed">
+                <p
+                  className="text-gray-300 leading-relaxed"
+                  data-testid="movie-overview"
+                >
                   {movie.overview}
                 </p>
               </div>
@@ -215,7 +220,7 @@ export default function MoviePage() {
 
             {/* Cast */}
             {credits?.cast && credits.cast.length > 0 && (
-              <div className="mb-6">
+              <div className="mb-6" data-testid="cast-section">
                 <h2 className="text-xl font-semibold mb-4">
                   {t('movie.cast')}
                 </h2>
@@ -237,7 +242,12 @@ export default function MoviePage() {
                           </div>
                         )}
                       </div>
-                      <p className="font-medium truncate">{actor.name}</p>
+                      <p
+                        className="font-medium truncate"
+                        data-testid="cast-member"
+                      >
+                        {actor.name}
+                      </p>
                       <p className="text-sm text-gray-400 truncate">
                         {actor.character}
                       </p>
@@ -249,7 +259,7 @@ export default function MoviePage() {
 
             {/* Videos */}
             {videos?.results && videos.results.length > 0 && (
-              <div className="mb-6">
+              <div className="mb-6" data-testid="videos-section">
                 <h2 className="text-xl font-semibold mb-4">
                   {t('movie.videos')}
                 </h2>
@@ -321,7 +331,7 @@ export default function MoviePage() {
 
             {/* Reviews */}
             {reviews?.results && reviews.results.length > 0 && (
-              <div className="mb-6">
+              <div className="mb-6" data-testid="reviews-section">
                 <h2 className="text-xl font-semibold mb-4">
                   {t('movie.reviews')}
                 </h2>

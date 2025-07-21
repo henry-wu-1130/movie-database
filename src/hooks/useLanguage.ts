@@ -8,7 +8,6 @@ export function useLanguage() {
     useLanguageStore();
 
   useEffect(() => {
-    // 監聽其他分頁的語言變更
     const handleLanguageChange = (e: CustomEvent<string>) => {
       if (e.detail !== systemLanguage) {
         setSystemLanguage(e.detail);

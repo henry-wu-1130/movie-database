@@ -4,7 +4,6 @@ import { renderWithClient } from '@/test/utils';
 import SearchPage from '../page';
 import { MovieResponse } from '@/types/tmdb';
 
-// Create a partial mock type for our tests
 type PartialInfiniteQueryResult = {
   data?: {
     pages: Array<MovieResponse>;
@@ -16,7 +15,6 @@ type PartialInfiniteQueryResult = {
   error: Error | null;
 };
 
-// Mock next/navigation
 vi.mock('next/navigation', () => ({
   useParams: () => ({ lng: 'en' }),
   useSearchParams: () => ({
@@ -79,7 +77,6 @@ const mockData = vi.hoisted(() => ({
   } as PartialInfiniteQueryResult,
 }));
 
-// Mock react-intersection-observer
 const mockIntersectionObserver = vi.hoisted(() => ({
   useInView: vi.fn(() => ({
     ref: vi.fn(),
@@ -95,7 +92,6 @@ describe('SearchPage', () => {
   it('renders search results title with query', async () => {
     renderWithClient(<SearchPage />);
 
-    // 檢查搜索結果標題是否包含查詢詞
     expect(await screen.findByText(/search.resultsFor/)).toBeDefined();
     expect(await screen.findByText(/test query/)).toBeDefined();
   });
@@ -103,7 +99,6 @@ describe('SearchPage', () => {
   it('renders search results', async () => {
     renderWithClient(<SearchPage />);
 
-    // 檢查搜索結果是否顯示
     expect(await screen.findByText('Search Result 1')).toBeDefined();
     expect(await screen.findByText('Search Result 2')).toBeDefined();
   });
@@ -129,14 +124,10 @@ describe('SearchPage', () => {
 
     renderWithClient(<SearchPage />);
 
-    // 檢查是否顯示無結果訊息
     expect(screen.findByText('No results found for')).toBeDefined();
   });
 
   it('renders loading skeletons when fetching next page', () => {
-    // 模擬正在加載下一頁
-    // 使用模擬函數處理查詢鉤子
-
     mockData.mockSearchMovies = {
       data: undefined,
       fetchNextPage: vi.fn(),
@@ -150,7 +141,6 @@ describe('SearchPage', () => {
 
     renderWithClient(<SearchPage />);
 
-    // 檢查是否顯示加載骨架屏
     const skeletons = document.querySelectorAll(
       '[data-testid="loading-skeleton"]'
     );

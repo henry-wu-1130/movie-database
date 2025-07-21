@@ -32,18 +32,21 @@ const getRequestParams = (options?: TMDBOptions) => {
 };
 
 /**
- * 獲取熱門電影（帶數據驗證）
+ * 獲取熱門電影
  */
 export const getPopularMovies = async (page = 1, language?: string) => {
   const params = {
     page,
     ...getRequestParams({ language }),
   };
-  return validatedHttp.get(`/movie/popular?${createQueryString(params)}`, movieResponseSchema);
+  return validatedHttp.get(
+    `/movie/popular?${createQueryString(params)}`,
+    movieResponseSchema
+  );
 };
 
 /**
- * 獲取電影詳情（帶數據驗證）
+ * 獲取電影詳情
  */
 export const getMovieDetails = async (movieId: number, language?: string) => {
   const params = getRequestParams({ language });
@@ -54,7 +57,7 @@ export const getMovieDetails = async (movieId: number, language?: string) => {
 };
 
 /**
- * 獲取電影演職員表（帶數據驗證）
+ * 獲取電影演職員表
  */
 export const getMovieCredits = async (movieId: number, language?: string) => {
   const params = getRequestParams({ language });
@@ -65,7 +68,7 @@ export const getMovieCredits = async (movieId: number, language?: string) => {
 };
 
 /**
- * 獲取電影視頻（帶數據驗證）
+ * 獲取電影影片
  */
 export const getMovieVideos = async (movieId: number, language?: string) => {
   const params = getRequestParams({ language });
@@ -76,7 +79,7 @@ export const getMovieVideos = async (movieId: number, language?: string) => {
 };
 
 /**
- * 獲取電影評論（帶數據驗證）
+ * 獲取電影評論
  */
 export const getMovieReviews = async (
   movieId: number,
@@ -94,9 +97,13 @@ export const getMovieReviews = async (
 };
 
 /**
- * 搜索電影（帶數據驗證）
+ * 搜索電影
  */
-export const searchMovies = async (query: string, page = 1, language?: string) => {
+export const searchMovies = async (
+  query: string,
+  page = 1,
+  language?: string
+) => {
   const params = {
     query,
     page,
@@ -109,7 +116,7 @@ export const searchMovies = async (query: string, page = 1, language?: string) =
 };
 
 /**
- * 獲取正在上映的電影（帶數據驗證）
+ * 獲取正在上映的電影
  */
 export const getNowPlaying = async (page = 1, language?: string) => {
   const params = {
@@ -123,7 +130,7 @@ export const getNowPlaying = async (page = 1, language?: string) => {
 };
 
 /**
- * 獲取即將上映的電影（帶數據驗證）
+ * 獲取即將上映的電影
  */
 export const getUpcoming = async (page = 1, language?: string) => {
   const params = {

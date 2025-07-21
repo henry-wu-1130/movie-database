@@ -1,0 +1,48 @@
+{
+  "id": 299534,
+  "cast": [
+    {
+      "adult": false,
+      "gender": 2,
+      "id": 1001,
+      "known_for_department": "Acting",
+      "name": "Actor One",
+      "original_name": "Actor One",
+      "popularity": 50.123,
+      "profile_path": "/profile1.jpg",
+      "cast_id": 1,
+      "character": "Character One",
+      "credit_id": "credit1",
+      "order": 0
+    },
+    {
+      "adult": false,
+      "gender": 1,
+      "id": 1002,
+      "known_for_department": "Acting",
+      "name": "Actor Two",
+      "original_name": "Actor Two",
+      "popularity": 45.678,
+      "profile_path": "/profile2.jpg",
+      "cast_id": 2,
+      "character": "Character Two",
+      "credit_id": "credit2",
+      "order": 1
+    }
+  ],
+  "crew": [
+    {
+      "adult": false,
+      "gender": 2,
+      "id": 2001,
+      "known_for_department": "Directing",
+      "name": "Director Name",
+      "original_name": "Director Name",
+      "popularity": 20.456,
+      "profile_path": "/director.jpg",
+      "credit_id": "credit_dir",
+      "department": "Directing",
+      "job": "Director"
+    }
+  ]
+}

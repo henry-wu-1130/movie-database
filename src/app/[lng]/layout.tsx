@@ -16,17 +16,10 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-// export const metadata: Metadata = {
-//   title: 'Movie Database',
-//   description: 'A movie database powered by TMDB API',
-// };
-
-// 生成靜態參數，為每種支持的語言生成路由
 export function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
 
-// 根據當前語言生成元數據
 export async function generateMetadata({
   params,
 }: {
@@ -46,8 +39,6 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { lng: string };
 }>) {
-  // 取得翻譯函數但不在這裡使用
-  // 只是為了確保語言資源已經載入
   await getTranslation(lng);
 
   return (

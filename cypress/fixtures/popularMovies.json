@@ -1,0 +1,39 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/backdrop1.jpg",
+      "genre_ids": [28, 12, 878],
+      "id": 1,
+      "original_language": "en",
+      "original_title": "Test Movie 1",
+      "overview": "This is a test movie description for the first movie.",
+      "popularity": 100.5,
+      "poster_path": "/poster1.jpg",
+      "release_date": "2023-01-01",
+      "title": "Test Movie 1",
+      "video": false,
+      "vote_average": 7.5,
+      "vote_count": 1000
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/backdrop2.jpg",
+      "genre_ids": [28, 12, 878],
+      "id": 2,
+      "original_language": "en",
+      "original_title": "Test Movie 2",
+      "overview": "This is a test movie description for the second movie.",
+      "popularity": 90.5,
+      "poster_path": "/poster2.jpg",
+      "release_date": "2023-02-01",
+      "title": "Test Movie 2",
+      "video": false,
+      "vote_average": 8.0,
+      "vote_count": 1200
+    }
+  ],
+  "total_pages": 10,
+  "total_results": 200
+}

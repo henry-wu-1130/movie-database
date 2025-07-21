@@ -17,7 +17,8 @@
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "release": "npx commit-and-tag-version"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
@@ -51,6 +52,7 @@
     "@cypress/code-coverage": "^3.14.5",
     "@eslint/eslintrc": "^3",
     "@sentry/cli": "^2.50.0",
+    "@testing-library/cypress": "^10.0.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^16.3.0",

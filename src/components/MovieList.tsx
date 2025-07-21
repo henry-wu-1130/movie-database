@@ -48,7 +48,7 @@ export function MovieList({ query }: MovieListProps) {
   }
 
   return (
-    <div className="relative">
+    <div className="relative" data-testid="movie-list">
       <div className="flex overflow-x-auto pb-6 px-4 sm:px-6 lg:px-8 gap-4 snap-x snap-mandatory custom-scrollbar">
         {data?.results.map((movie) => (
           <div key={movie.id} className="flex-none snap-start">

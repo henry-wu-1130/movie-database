@@ -35,7 +35,6 @@ describe('WatchlistButton', () => {
       />
     );
 
-    // 檢查添加到收藏清單按鈕是否存在
     const addButton = screen.getByRole('button');
     expect(addButton).toBeDefined();
     expect(addButton.textContent).toContain('watchlist.add');
@@ -108,7 +107,6 @@ describe('WatchlistButton', () => {
     const addButton = screen.getByRole('button');
     fireEvent.click(addButton);
 
-    // 檢查是否調用了 addToWatchlist 函數
     expect(mockAddToWatchlist).toHaveBeenCalledWith(2);
   });
 

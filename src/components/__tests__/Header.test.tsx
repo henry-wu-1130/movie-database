@@ -4,7 +4,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createWrapper } from '@/test/utils';
 import { Header } from '../Header';
 
-// Mock next/link
 vi.mock('next/link', () => ({
   default: ({
     children,
@@ -23,14 +22,12 @@ vi.mock('next/link', () => ({
   ),
 }));
 
-// Mock LanguageSelector component
 vi.mock('../LanguageSelector', () => ({
   LanguageSelector: () => <div data-testid="language-selector">Language</div>,
 }));
 
 const mockRouter = { push: vi.fn() };
 
-// Mock next/navigation hooks
 vi.mock('next/navigation', () => ({
   useRouter: () => mockRouter,
   useSearchParams: () => ({
@@ -42,7 +39,6 @@ vi.mock('next/navigation', () => ({
   }),
 }));
 
-// Mock movie query hook
 vi.mock('@/query', () => ({
   useSearchMoviesQuery: () => ({
     data: null,
@@ -63,7 +59,7 @@ describe('Header', () => {
     expect(screen.getByTestId('watchlist-link-mobile')).toBeInTheDocument();
 
     const searchInputs = screen.getAllByRole('searchbox');
-    expect(searchInputs).toHaveLength(2); // desktop and mobile
+    expect(searchInputs).toHaveLength(2);
 
     const searchInput = searchInputs[0];
     expect(searchInput).toHaveAttribute('placeholder', 'search.placeholder');

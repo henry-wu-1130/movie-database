@@ -6,7 +6,6 @@ import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next';
 import { fallbackLng, languages, defaultNS } from './settings';
 
-// 創建客戶端 i18next 實例
 const i18nextClient = i18next
   .use(initReactI18next)
   .use(LanguageDetector)
@@ -16,11 +15,10 @@ const i18nextClient = i18next
     )
   );
 
-// 初始化 i18next
 i18nextClient.init({
   supportedLngs: languages,
   fallbackLng,
-  lng: undefined, // 讓客戶端檢測語言
+  lng: undefined,
   fallbackNS: defaultNS,
   defaultNS,
   detection: {

@@ -9,7 +9,6 @@ import {
 } from '@/schemas/tmdb';
 import MovieDetailPage from '../page';
 
-// 定義部分 React Query 結果類型，只包含我們在測試中使用的屬性
 type PartialQueryResult<TData> = {
   data: TData | undefined;
   isLoading: boolean;
@@ -142,7 +141,6 @@ const mockData = vi.hoisted<MockData>(() => ({
   },
 }));
 
-// Mock next/navigation
 vi.mock('next/navigation', () => ({
   useParams: () => ({ lng: 'en', id: '123' }),
 }));
@@ -193,14 +191,12 @@ describe('MovieDetailPage', () => {
   it('renders cast section', async () => {
     renderWithClient(<MovieDetailPage />);
 
-    // 檢查演員部分是否顯示
     expect(await screen.findByText('movie.cast')).toBeDefined();
     expect(await screen.findByText('Actor 1')).toBeDefined();
     expect(await screen.findByText('Actor 2')).toBeDefined();
   });
 
   it('renders loading state when data is loading', () => {
-    // 模擬加載狀態
     mockData.mockMovieDetail = {
       data: undefined,
       isLoading: true,
@@ -212,7 +208,6 @@ describe('MovieDetailPage', () => {
 
     renderWithClient(<MovieDetailPage />);
 
-    // 檢查是否顯示骨架屏
     const skeletons = document.querySelectorAll(
       '[data-testid="movie-skeleton"]'
     );

@@ -1,0 +1,29 @@
+{
+  "id": 299534,
+  "results": [
+    {
+      "iso_639_1": "en",
+      "iso_3166_1": "US",
+      "name": "Official Trailer",
+      "key": "TcMBFSGVi1c",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Trailer",
+      "official": true,
+      "published_at": "2023-01-01T00:00:00.000Z",
+      "id": "video1"
+    },
+    {
+      "iso_639_1": "en",
+      "iso_3166_1": "US",
+      "name": "Teaser",
+      "key": "hA6hldpSTF8",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Teaser",
+      "official": true,
+      "published_at": "2022-12-01T00:00:00.000Z",
+      "id": "video2"
+    }
+  ]
+}

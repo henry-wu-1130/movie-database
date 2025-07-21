@@ -34,6 +34,7 @@ export function WatchlistButton({
       <button
         onClick={handleClick}
         className={`p-2 text-white liquid-glass focus:outline-none ${className}`}
+        data-testid="watchlist-button"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -57,6 +58,7 @@ export function WatchlistButton({
     <button
       onClick={handleClick}
       className={`flex items-center gap-2 px-4 py-2 text-white liquid-glass focus:outline-none ${className}`}
+      data-testid="watchlist-button"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
