@@ -169,6 +169,50 @@ export default function MoviePage() {
               </div>
             )}
 
+            {/* Director */}
+            {credits?.crew &&
+              credits.crew.length > 0 &&
+              (() => {
+                const directors = credits.crew.filter(
+                  (member) => member.job === 'Director'
+                );
+                if (directors.length === 0) return null;
+                return (
+                  <div className="mb-6">
+                    <h2 className="text-xl font-semibold mb-2">
+                      {t('movie.director', 'Director')}
+                    </h2>
+                    <div className="flex flex-wrap gap-4 items-center">
+                      {directors.map((director) => (
+                        <div
+                          key={director.id}
+                          className="flex items-center gap-2"
+                        >
+                          {director.profile_path ? (
+                            <div className="w-12 h-12 rounded-full overflow-hidden">
+                              <Image
+                                src={`https://image.tmdb.org/t/p/w92${director.profile_path}`}
+                                alt={director.name}
+                                width={48}
+                                height={48}
+                                className="rounded-full object-cover bg-gray-200"
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-12 h-12 rounded-full bg-gray-500 flex items-center justify-center text-xs text-white">
+                              {t('common.noImage', '—')}
+                            </div>
+                          )}
+                          <span className="font-medium text-gray-100">
+                            {director.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
             {/* Cast */}
             {credits?.cast && credits.cast.length > 0 && (
               <div className="mb-6">

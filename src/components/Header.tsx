@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { SearchBar } from './SearchBar';
 import { LanguageSelector } from './LanguageSelector';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import * as routes from '@/config/routes';
 import { useT } from '@/app/i18n/client';
 import { useParams } from 'next/navigation';
@@ -52,7 +52,9 @@ export function Header() {
               {t('common.watchlist')}
             </Link>
             <div className="w-72">
-              <SearchBar />
+              <Suspense fallback={'...'}>
+                <SearchBar />
+              </Suspense>
             </div>
             <LanguageSelector />
           </div>
@@ -60,7 +62,9 @@ export function Header() {
           {/* Mobile Navigation Button */}
           <div className="flex md:hidden items-center gap-4">
             <div className="w-48">
-              <SearchBar />
+              <Suspense fallback={'...'}>
+                <SearchBar />
+              </Suspense>
             </div>
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -129,7 +133,7 @@ export function Header() {
                   d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
                 />
               </svg>
-              {t('common.watchlist', '待看清單')}
+              {t('common.watchlist')}
             </Link>
             <div className="px-3 py-2">
               <LanguageSelector />

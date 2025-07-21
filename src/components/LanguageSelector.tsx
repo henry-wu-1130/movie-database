@@ -70,7 +70,7 @@ export function LanguageSelector() {
           <div className="divide-y divide-gray-100 dark:divide-gray-700">
             <div className="p-4">
               <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                {t('common.systemLanguage', 'System Language')}
+                {t('common.systemLanguage')}
               </h3>
               <div className="mt-3 space-y-2">
                 {SYSTEM_LANGUAGES.map((lang) => (
@@ -119,7 +119,7 @@ export function LanguageSelector() {
 
             <div className="p-4">
               <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                {t('common.movieLanguage', 'Movie Language')}
+                {t('common.movieLanguage')}
               </h3>
               <div className="mt-3 space-y-2">
                 {MOVIE_LANGUAGES.map((lang) => (

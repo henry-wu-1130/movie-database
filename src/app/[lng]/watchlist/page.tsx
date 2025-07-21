@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, Suspense } from 'react';
 import { useT } from '@/app/i18n/client';
 import { MovieCard } from '@/components/MovieCard';
 import { useWatchlistStore } from '@/stores/watchlistStore';
@@ -130,7 +130,13 @@ export default function WatchlistPage() {
             )}
           </h1>
           {movieIds.length > 0 && !isLoading && (
-            <SortSelect className="w-full md:w-auto" mode="watchlist" />
+            <Suspense
+              fallback={
+                <SortSelect className="w-full md:w-auto" mode="watchlist" />
+              }
+            >
+              <SortSelect className="w-full md:w-auto" mode="watchlist" />
+            </Suspense>
           )}
         </div>
 

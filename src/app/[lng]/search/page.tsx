@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteSearchMoviesQuery } from '@/query';
@@ -13,7 +13,7 @@ import { useLanguageStore } from '@/stores/languageStore';
 import { InfiniteData } from '@tanstack/react-query';
 import { useT } from '@/app/i18n/client';
 
-export default function SearchPage() {
+function SearchPageComponent() {
   const { ref: loadMoreRef, inView } = useInView({
     threshold: 0.5,
     triggerOnce: false,
@@ -128,5 +128,13 @@ export default function SearchPage() {
         ) : null}
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={'...'}>
+      <SearchPageComponent />
+    </Suspense>
   );
 }
