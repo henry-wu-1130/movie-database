@@ -1,4 +1,4 @@
-name: Test & Build
+name: Test, Build & Lighthouse
 
 on:
   push:
@@ -9,35 +9,36 @@ on:
 jobs:
   test-build:
     runs-on: ubuntu-latest
+    env:
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      SENTRY_ORG: your-org
+      SENTRY_PROJECT: your-project
+      SENTRY_RELEASE: ${{ github.sha }}
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - run: npm install
+
       - run: npm run test
+
       - run: npm run build
 
-      # Start server for Lighthouse CI
-      - name: Start local server
+      - name: Upload sourcemaps to Sentry
         run: |
-          npm run build
+          npx sentry-cli releases new "$SENTRY_RELEASE"
+          npx sentry-cli releases files "$SENTRY_RELEASE" upload-sourcemaps .next --rewrite --url-prefix '~/'
+          npx sentry-cli releases finalize "$SENTRY_RELEASE"
+
+      - name: Start local server for Lighthouse
+        run: |
           npm run start & npx wait-on http://localhost:3000
 
-      # Run Lighthouse CI
       - name: Run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.13.x
           lhci autorun --collect.url=http://localhost:3000
-
-  lighthouseci:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - run: npm install && npm install -g @lhci/cli@0.15.x
-      - run: npm run build
-      - run: lhci autorun

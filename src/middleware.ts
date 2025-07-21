@@ -20,7 +20,7 @@ export function middleware(req: NextRequest) {
   let lng;
   // Try to get language from cookie
   if (req.cookies.has(cookieName))
-    lng = acceptLanguage.get(req.cookies.get(cookieName).value);
+    lng = acceptLanguage.get(req.cookies.get(cookieName)?.value);
   // If no cookie, check the Accept-Language header
   if (!lng) lng = acceptLanguage.get(req.headers.get('Accept-Language'));
   // Default to fallback language if still undefined
@@ -48,7 +48,7 @@ export function middleware(req: NextRequest) {
 
   // If a referer exists, try to detect the language from there and set the cookie accordingly
   if (req.headers.has('referer')) {
-    const refererUrl = new URL(req.headers.get('referer'));
+    const refererUrl = new URL(req.headers.get('referer') || '');
     const lngInReferer = languages.find((l) =>
       refererUrl.pathname.startsWith(`/${l}`)
     );
