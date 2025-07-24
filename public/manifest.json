@@ -11,12 +11,53 @@
     {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "theme_color": "#000000",
   "background_color": "#000000",
   "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "scope": "/",
+  "description": "探索電影世界的最佳應用",
+  "categories": [
+    "entertainment",
+    "movies"
+  ],
+  "shortcuts": [
+    {
+      "name": "搜索電影",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "/icons/search-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "我的觀賞清單",
+      "url": "/watchlist",
+      "icons": [
+        {
+          "src": "/icons/watchlist-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "type": "image/png",
+      "sizes": "540x720"
+    },
+    {
+      "src": "/screenshots/movie.png",
+      "type": "image/png",
+      "sizes": "540x720"
+    }
+  ]
 }

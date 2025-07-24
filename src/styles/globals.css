@@ -45,6 +45,12 @@
     /* Background & Foreground - 利休鼠 (Rikyuu-nezumi) */
     --background: #0f1115;
     --foreground: #f7f7f7;
+
+    /* PWA 安全區域支持 */
+    --sat: env(safe-area-inset-top);
+    --sar: env(safe-area-inset-right);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
   }
 }
 
@@ -67,6 +73,30 @@
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+.safe-area-top {
+  padding-top: var(--sat);
+}
+
+.safe-area-right {
+  padding-right: var(--sar);
+}
+
+.safe-area-bottom {
+  padding-bottom: var(--sab);
+}
+
+.safe-area-left {
+  padding-left: var(--sal);
+}
+
+/* 針對 iOS PWA 模式的特殊處理 */
+@media screen and (display-mode: standalone) {
+  body {
+    /* 防止 iOS 上的彈性滾動效果 */
+    overscroll-behavior-y: none;
+  }
 }
 
 @config "../../tailwind.config.js";

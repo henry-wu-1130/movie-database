@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Providers } from '@/components/Providers';
 import { Header } from '@/components/Header';
+import { BottomNavigation } from '@/components/BottomNavigation';
 import { languages } from '@/app/i18n/settings';
 import { getTranslation } from '@/app/i18n';
 import '@/styles/globals.css';
@@ -59,7 +60,8 @@ export default async function RootLayout({
       >
         <Providers lng={lng}>
           <Header />
-          <main className="mx-auto py-0">{children}</main>
+          <main className="mx-auto py-0 pb-16">{children}</main>
+          <BottomNavigation />
         </Providers>
       </body>
     </html>
