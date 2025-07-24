@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 
+import withPWA from 'next-pwa';
 import { withSentryConfig } from '@sentry/nextjs';
 
 const nextConfig = {
@@ -14,7 +15,14 @@ const nextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, {
+const withPWAConfig = withPWA({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+});
+
+export default withSentryConfig(withPWAConfig(nextConfig), {
   org: 'hen-li-wu',
   project: 'javascript-react',
 

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Head from 'next/head';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Providers } from '@/components/Providers';
 import { Header } from '@/components/Header';
@@ -29,6 +30,11 @@ export async function generateMetadata({
   return {
     title: t('common.siteTitle'),
     description: t('common.siteTitle'),
+    themeColor: '#000000',
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: 'black-translucent',
+    },
   };
 }
 
@@ -43,6 +49,12 @@ export default async function RootLayout({
 
   return (
     <html lang={lng}>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-50 dark:bg-gray-900`}
       >
