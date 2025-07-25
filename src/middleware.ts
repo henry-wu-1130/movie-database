@@ -12,7 +12,8 @@ acceptLanguage.languages(languages);
 export function middleware(req: NextRequest) {
   if (
     req.nextUrl.pathname.indexOf('icon') > -1 ||
-    req.nextUrl.pathname.indexOf('chrome') > -1
+    req.nextUrl.pathname.indexOf('chrome') > -1 ||
+    req.nextUrl.pathname === '/manifest.json'
   )
     return NextResponse.next();
 
