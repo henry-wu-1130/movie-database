@@ -40,7 +40,7 @@ export async function generateMetadata({
       capable: true,
       statusBarStyle: 'black-translucent',
     },
-    manifest: '/manifest.json',
+    manifest: '/public/manifest.json',
   };
 }
 
