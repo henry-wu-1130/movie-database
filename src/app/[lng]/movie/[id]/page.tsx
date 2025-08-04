@@ -14,7 +14,7 @@ import { WatchlistButton } from '@/components/WatchlistButton';
 import { useT } from '@/app/i18n/client';
 
 export default function MoviePage() {
-  const { t } = useT('movie', {});
+  const { t, ready } = useT('movie');
   const params = useParams();
   const { movieLanguage } = useLanguageStore();
   const movieId = Number(params.id);
@@ -95,7 +95,7 @@ export default function MoviePage() {
     return (
       <div className="min-h-screen bg-gray-900 text-white">
         <div className="flex justify-center py-8">
-          <p className="text-red-500">{t('movie.error')}</p>
+          <p className="text-red-500">{ready ? t('movie.error') : ''}</p>
         </div>
       </div>
     );
@@ -137,12 +137,12 @@ export default function MoviePage() {
           {/* Details */}
           <div className="flex-1">
             <h1 className="text-4xl font-bold mb-4" data-testid="movie-title">
-              {movie.title}
+              {ready ? movie.title : ''}
             </h1>
 
             {movie.release_date && (
               <p className="text-gray-300 mb-4">
-                {t('movie.releaseDate')}:{' '}
+                {ready ? t('movie.releaseDate') : ''}:{' '}
                 {new Date(movie.release_date).toLocaleDateString()}
               </p>
             )}
@@ -163,7 +163,7 @@ export default function MoviePage() {
             {movie.overview && (
               <div className="mb-6">
                 <h2 className="text-xl font-semibold mb-2">
-                  {t('movie.overview')}
+                  {ready ? t('movie.overview') : ''}
                 </h2>
                 <p
                   className="text-gray-300 leading-relaxed"
@@ -185,7 +185,7 @@ export default function MoviePage() {
                 return (
                   <div className="mb-6">
                     <h2 className="text-xl font-semibold mb-2">
-                      {t('movie.director', 'Director')}
+                      {ready ? t('movie.director', 'Director') : ''}
                     </h2>
                     <div className="flex flex-wrap gap-4 items-center">
                       {directors.map((director) => (
@@ -222,7 +222,7 @@ export default function MoviePage() {
             {credits?.cast && credits.cast.length > 0 && (
               <div className="mb-6" data-testid="cast-section">
                 <h2 className="text-xl font-semibold mb-4">
-                  {t('movie.cast')}
+                  {ready ? t('movie.cast') : ''}
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                   {credits.cast.slice(0, 10).map((actor) => (
@@ -261,7 +261,7 @@ export default function MoviePage() {
             {videos?.results && videos.results.length > 0 && (
               <div className="mb-6" data-testid="videos-section">
                 <h2 className="text-xl font-semibold mb-4">
-                  {t('movie.videos')}
+                  {ready ? t('movie.videos') : ''}
                 </h2>
                 <div className="space-y-8 max-w-[1440px] mx-auto">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -298,7 +298,7 @@ export default function MoviePage() {
                   {videos.results.length > 4 && (
                     <div className="mt-8">
                       <h3 className="text-lg font-medium mb-4">
-                        {t('movie.moreVideos')}
+                        {ready ? t('movie.moreVideos') : ''}
                       </h3>
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         {videos.results
@@ -333,7 +333,7 @@ export default function MoviePage() {
             {reviews?.results && reviews.results.length > 0 && (
               <div className="mb-6" data-testid="reviews-section">
                 <h2 className="text-xl font-semibold mb-4">
-                  {t('movie.reviews')}
+                  {ready ? t('movie.reviews') : ''}
                 </h2>
                 <div className="space-y-6">
                   {reviews.results.slice(0, 3).map((review) => (
@@ -358,7 +358,7 @@ export default function MoviePage() {
                         rel="noopener noreferrer"
                         className="text-blue-400 text-sm mt-2 inline-block hover:underline"
                       >
-                        {t('movie.readFullReview')}
+                        {ready ? t('movie.readFullReview') : ''}
                       </a>
                     </div>
                   ))}

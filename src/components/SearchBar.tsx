@@ -13,7 +13,7 @@ import { useSearchMoviesQuery } from '@/query';
 import { useLanguageStore } from '@/stores/languageStore';
 
 export function SearchBar() {
-  const { t } = useT('search');
+  const { t, ready } = useT('search');
   const params = useParams();
   const lng = params?.lng as string;
 
@@ -83,7 +83,7 @@ export function SearchBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setShowSuggestions(true)}
-          placeholder={t('search.placeholder')}
+          placeholder={ready ? t('search.placeholder') : ''}
           className="w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>

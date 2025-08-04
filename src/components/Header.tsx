@@ -9,7 +9,7 @@ import { useT } from '@/app/i18n/client';
 import { useParams } from 'next/navigation';
 
 export function Header() {
-  const { t } = useT('common');
+  const { t, ready } = useT('common');
   const [isOpen, setIsOpen] = useState(false);
 
   const params = useParams();
@@ -24,7 +24,9 @@ export function Header() {
               className="text-xl font-bold text-white transition-all"
               data-testid="site-logo"
             >
-              <span suppressHydrationWarning>{t('common.siteTitle')}</span>
+              <span suppressHydrationWarning>
+                {ready ? t('common.siteTitle') : ''}
+              </span>
             </Link>
           </div>
 
@@ -49,7 +51,7 @@ export function Header() {
                   d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
                 />
               </svg>
-              {t('common.watchlist')}
+              {ready ? t('common.watchlist') : ''}
             </Link>
             <div className="w-72">
               <Suspense fallback={'...'}>
@@ -133,7 +135,7 @@ export function Header() {
                   d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
                 />
               </svg>
-              {t('common.watchlist')}
+              {ready ? t('common.watchlist') : ''}
             </Link>
             <div className="px-3 py-2">
               <LanguageSelector />

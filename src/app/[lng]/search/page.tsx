@@ -21,7 +21,7 @@ function SearchPageComponent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const { movieLanguage } = useLanguageStore();
-  const { t } = useT('search');
+  const { t, ready } = useT('search');
 
   const {
     data,
@@ -70,7 +70,7 @@ function SearchPageComponent() {
   if (error) {
     return (
       <div className="flex justify-center py-8">
-        <p className="text-red-500">{t('error')}</p>
+        <p className="text-red-500">{ready ? t('error') : ''}</p>
       </div>
     );
   }
@@ -79,9 +79,11 @@ function SearchPageComponent() {
     return (
       <div className="flex flex-col items-center py-8 space-y-4">
         <p className="text-gray-500">
-          {t('search.noResults')} &quot;{query}&quot;
+          {ready ? t('search.noResults') : ''} &quot;{query}&quot;
         </p>
-        <p className="text-sm text-gray-400">{t('search.tryAgain')}</p>
+        <p className="text-sm text-gray-400">
+          {ready ? t('search.tryAgain') : ''}
+        </p>
       </div>
     );
   }
@@ -90,7 +92,7 @@ function SearchPageComponent() {
     <div className="space-y-8 p-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          {t('search.resultsFor')} &quot;{query}&quot;
+          {ready ? t('search.resultsFor') : ''} &quot;{query}&quot;
         </h1>
       </div>
 
@@ -118,7 +120,9 @@ function SearchPageComponent() {
           </div>
         ) : hasNextPage ? (
           <div className="flex justify-center">
-            <p className="text-sm text-gray-500">{t('search.loadingMore')}</p>
+            <p className="text-sm text-gray-500">
+              {ready ? t('search.loadingMore') : ''}
+            </p>
           </div>
         ) : null}
       </div>

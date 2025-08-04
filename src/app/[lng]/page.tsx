@@ -10,7 +10,7 @@ import {
 import { useLanguageStore } from '@/stores/languageStore';
 
 export default function Home() {
-  const { t } = useT('home');
+  const { t, ready } = useT('home');
 
   const { movieLanguage } = useLanguageStore();
 
@@ -22,19 +22,19 @@ export default function Home() {
     <div className="py-0">
       <section id="popular" className="bg-primary-600 py-10">
         <h2 className="mb-8 px-8 text-2xl font-bold text-accent-50">
-          {t('home.popularMovies')}
+          {ready ? t('home.popularMovies') : ''}
         </h2>
         <MovieList query={popularMoviesQuery} />
       </section>
       <section id="now-playing" className="bg-secondary-800 py-10">
         <h2 className="mb-8 px-8 text-2xl font-bold text-primary-500">
-          {t('home.nowPlaying')}
+          {ready ? t('home.nowPlaying') : ''}
         </h2>
         <MovieList query={nowPlayingMoviesQuery} />
       </section>
       <section id="upcoming" className="bg-secondary-700 py-10">
         <h2 className="mb-8 px-8 text-2xl font-bold text-accent-100">
-          {t('home.upcomingMovies')}
+          {ready ? t('home.upcomingMovies') : ''}
         </h2>
         <MovieList query={upcomingMoviesQuery} />
       </section>

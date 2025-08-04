@@ -17,7 +17,7 @@ import {
 } from '@/stores/sortStore';
 
 export default function WatchlistPage() {
-  const { t } = useT('watchlist', {});
+  const { t, ready } = useT('watchlist');
   const watchlistStore = useWatchlistStore();
   const { movieIds } = watchlistStore;
   const { watchlistSort } = useSortStore();
@@ -122,10 +122,10 @@ export default function WatchlistPage() {
       <div className="mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {t('watchlist.title')}
+            {ready ? t('watchlist.title') : ''}
             {movieIds.length > 0 && (
               <span className="text-sm font-normal ml-2 text-gray-500">
-                ({currentPage}/{totalPages} {t('watchlist.page')})
+                ({currentPage}/{totalPages} {ready ? t('watchlist.page') : ''})
               </span>
             )}
           </h1>
@@ -143,7 +143,7 @@ export default function WatchlistPage() {
         {movieIds.length === 0 ? (
           <div className="text-center py-12" data-testid="empty-watchlist">
             <p className="text-gray-500 dark:text-gray-400">
-              {t('watchlist.empty')}
+              {ready ? t('watchlist.empty') : ''}
             </p>
           </div>
         ) : isLoading ? (
@@ -172,7 +172,7 @@ export default function WatchlistPage() {
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
                 >
-                  {t('watchlist.previous')}
+                  {ready ? t('watchlist.previous') : ''}
                 </Button>
 
                 <span className="text-sm mx-2">
@@ -185,7 +185,7 @@ export default function WatchlistPage() {
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
                 >
-                  {t('watchlist.next')}
+                  {ready ? t('watchlist.next') : ''}
                 </Button>
               </div>
             )}

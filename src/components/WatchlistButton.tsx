@@ -17,7 +17,7 @@ export function WatchlistButton({
   variant = 'full',
   className = '',
 }: WatchlistButtonProps) {
-  const { t } = useT('watchlist');
+  const { t, ready } = useT('watchlist');
   const { addMovie, removeMovie, isInWatchlist } = useWatchlistStore();
   const isInList = isInWatchlist(movie.id);
 
@@ -74,7 +74,9 @@ export function WatchlistButton({
           d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
         />
       </svg>
-      <span>{isInList ? t('watchlist.remove') : t('watchlist.add')}</span>
+      <span>
+        {ready ? (isInList ? t('watchlist.remove') : t('watchlist.add')) : ''}
+      </span>
     </button>
   );
 }

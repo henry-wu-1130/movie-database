@@ -27,7 +27,7 @@ export default function SortSelect({
   mode = 'watchlist',
   updateUrl = false,
 }: SortSelectProps) {
-  const { t } = useT('sort', {});
+  const { t, ready } = useT('sort');
 
   // Define sort options with translation keys
   const sortOptions: SortOptionDisplay[] = [
@@ -78,7 +78,7 @@ export default function SortSelect({
 
   // Get label for the current sort option
   const getOptionLabel = (field: SortField) => {
-    return t(`sort.${field}`);
+    return ready ? t(`sort.${field}`) : '';
   };
 
   // 處理排序變更 - 如果點擊相同字段，切換方向
@@ -127,7 +127,7 @@ export default function SortSelect({
   const renderDesktopSort = () => (
     <div className="hidden md:flex items-center space-x-4">
       <span className="text-gray-600 dark:text-gray-300">
-        {t('sort.label')}
+        {ready ? t('sort.label') : ''}
       </span>
       <div className="flex space-x-2">
         {sortOptions.map((option) => {

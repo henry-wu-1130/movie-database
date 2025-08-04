@@ -34,7 +34,7 @@ const MOVIE_LANGUAGES = [
 ] as const;
 
 export function LanguageSelector() {
-  const { t } = useT('common');
+  const { t, i18n, ready } = useT('common');
   const { systemLanguage, movieLanguage, setSystemLanguage, setMovieLanguage } =
     useLanguageStore();
 
@@ -70,25 +70,29 @@ export function LanguageSelector() {
           <div className="divide-y divide-gray-100 dark:divide-gray-700">
             <div className="p-4">
               <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                {t('common.systemLanguage')}
+                {ready ? t('common.systemLanguage') : ''}
               </h3>
               <div className="mt-3 space-y-2">
                 {SYSTEM_LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => {
-                      setSystemLanguage(lang.code);
-
-                      if (
-                        languages.includes(lang.code) &&
-                        lang.code !== currentLng
-                      ) {
-                        const newPathname = pathname.replace(
-                          `/${currentLng}`,
-                          `/${lang.code}`
-                        );
-                        router.push(newPathname);
-                      }
+                      // First change the i18n instance language to ensure immediate UI update
+                      i18n.changeLanguage(lang.code).then(() => {
+                        // Then update the store and URL
+                        setSystemLanguage(lang.code);
+                        
+                        if (
+                          languages.includes(lang.code) &&
+                          lang.code !== currentLng
+                        ) {
+                          const newPathname = pathname.replace(
+                            `/${currentLng}`,
+                            `/${lang.code}`
+                          );
+                          router.push(newPathname);
+                        }
+                      });
                     }}
                     className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm ${
                       systemLanguage === lang.code
@@ -119,13 +123,17 @@ export function LanguageSelector() {
 
             <div className="p-4">
               <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                {t('common.movieLanguage')}
+                {ready ? t('common.movieLanguage') : ''}
               </h3>
               <div className="mt-3 space-y-2">
                 {MOVIE_LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
-                    onClick={() => setMovieLanguage(lang.code)}
+                    onClick={() => {
+                      // For movie language, we only need to update the store
+                      // No need to change i18n instance or URL
+                      setMovieLanguage(lang.code);
+                    }}
                     className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm ${
                       movieLanguage === lang.code
                         ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400'

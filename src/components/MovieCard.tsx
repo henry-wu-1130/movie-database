@@ -49,7 +49,7 @@ export function MovieCardSkeleton({
 }
 
 export function MovieCard({ movie, variant = 'fixed' }: MovieCardProps) {
-  const { t } = useT('movie');
+  const { t, ready } = useT('movie');
   const params = useParams();
   const lng = params?.lng as string;
   const releaseDate = _get(movie, 'release_date');
@@ -86,7 +86,7 @@ export function MovieCard({ movie, variant = 'fixed' }: MovieCardProps) {
               {year && <span>{year}</span>}
               <div className="flex items-center gap-1">
                 <span className="text-yellow-500">★</span>
-                <span title={t('movie.rating')}>
+                <span title={ready ? t('movie.rating') : ''}>
                   {movie.vote_average.toFixed(1)}
                 </span>
               </div>
