@@ -20,17 +20,17 @@ export function SearchBar() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const defaultQuery = searchParams.get('q') || '';
-  const [query, setQuery] = useState(defaultQuery);
-  const [debouncedQuery, setDebouncedQuery] = useState(defaultQuery);
+  const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const { movieLanguage } = useLanguageStore();
   const { data } = useSearchMoviesQuery(debouncedQuery, 1, movieLanguage);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
-    setQuery(defaultQuery);
-    setDebouncedQuery(defaultQuery);
-  }, [defaultQuery]);
+    const q = searchParams.get('q') || '';
+    setQuery(q);
+    setDebouncedQuery(q);
+  }, [searchParams]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -40,7 +40,11 @@ export function SearchBar() {
   }, [query]);
 
   useEffect(() => {
-    if (debouncedQuery.trim() && pathname.includes('/search')) {
+    if (
+      debouncedQuery &&
+      debouncedQuery.trim() &&
+      pathname.includes('/search')
+    ) {
       router.push(
         `/${lng}/search?q=${encodeURIComponent(debouncedQuery.trim())}`
       );
