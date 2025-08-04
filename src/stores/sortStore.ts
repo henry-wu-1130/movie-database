@@ -23,23 +23,11 @@ export const useSortStore = create(
       watchlistSort: 'release_date.desc',
       setWatchlistSort: (sort: SortOption) => {
         set({ watchlistSort: sort });
-        const event = new CustomEvent('watchlist-sort-changed', {
-          detail: { sort },
-        });
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(event);
-        }
       },
 
       searchSort: 'popularity.desc',
       setSearchSort: (sort: SortOption) => {
         set({ searchSort: sort });
-        const event = new CustomEvent('search-sort-changed', {
-          detail: { sort },
-        });
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(event);
-        }
       },
     }),
     {
