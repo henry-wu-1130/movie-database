@@ -21,7 +21,8 @@ export const viewport: Viewport = {
   themeColor: '#000000',
   width: 'device-width',
   initialScale: 1,
-  viewportFit: 'cover',
+  maximumScale: 1.0, // Prevent pinch zooming which can cause layout issues
+  userScalable: false, // Disable user scaling to prevent layout shifts
 };
 
 export function generateStaticParams() {
@@ -39,7 +40,15 @@ export async function generateMetadata({
     description: t('common.siteTitle'),
     appleWebApp: {
       capable: true,
-      statusBarStyle: 'black-translucent',
+      statusBarStyle: 'default',
+      title: t('common.siteTitle'),
+      startupImage: [
+        {
+          url: '/apple-splash-2048-2732.jpg',
+          media:
+            '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)',
+        },
+      ],
     },
     manifest: '/manifest.json',
   };
