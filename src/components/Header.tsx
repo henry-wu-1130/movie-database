@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { SearchBar } from './SearchBar';
+import SearchBar from './SearchBar';
 import { LanguageSelector } from './LanguageSelector';
 import { useState } from 'react';
 import * as routes from '@/config/routes';

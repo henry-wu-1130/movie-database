@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import {
   useSortStore,
@@ -22,7 +22,7 @@ type SortOptionDisplay = {
   defaultDirection: SortDirection;
 };
 
-export default function SortSelect({
+function SortSelectComponent({
   className = '',
   mode = 'watchlist',
   updateUrl = false,
@@ -207,5 +207,13 @@ export default function SortSelect({
       {renderDesktopSort()}
       {renderMobileSort()}
     </div>
+  );
+}
+
+export default function SortSelect(props: SortSelectProps) {
+  return (
+    <Suspense fallback={''}>
+      <SortSelectComponent {...props} />
+    </Suspense>
   );
 }

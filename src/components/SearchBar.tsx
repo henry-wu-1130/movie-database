@@ -1,5 +1,5 @@
 'use client';
-
+import { Suspense } from 'react';
 import {
   useRouter,
   useSearchParams,
@@ -12,7 +12,7 @@ import { useT } from '@/app/i18n/client';
 import { useSearchMoviesQuery } from '@/query';
 import { useLanguageStore } from '@/stores/languageStore';
 
-export function SearchBar() {
+function SearchBarComponent() {
   const { t, ready } = useT('search');
   const params = useParams();
   const lng = params?.lng as string;
@@ -147,5 +147,13 @@ export function SearchBar() {
           </div>
         )}
     </form>
+  );
+}
+
+export default function SearchBar() {
+  return (
+    <Suspense fallback={''}>
+      <SearchBarComponent />
+    </Suspense>
   );
 }

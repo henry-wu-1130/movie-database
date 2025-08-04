@@ -1,6 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { SearchBar } from '@/components/SearchBar';
+import SearchBar from '@/components/SearchBar';
 import { renderWithClient } from '@/test/utils';
 
 const mockPush = vi.fn();

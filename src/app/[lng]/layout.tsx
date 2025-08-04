@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Providers } from '@/components/Providers';
 import { Header } from '@/components/Header';
@@ -17,6 +17,13 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+export const viewport: Viewport = {
+  themeColor: '#000000',
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
+
 export function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
@@ -30,12 +37,6 @@ export async function generateMetadata({
   return {
     title: t('common.siteTitle'),
     description: t('common.siteTitle'),
-    themeColor: '#000000',
-    viewport: {
-      width: 'device-width',
-      initialScale: 1,
-      viewportFit: 'cover',
-    },
     appleWebApp: {
       capable: true,
       statusBarStyle: 'black-translucent',
