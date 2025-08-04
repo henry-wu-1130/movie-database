@@ -3,10 +3,12 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { FiHome, FiBookmark } from 'react-icons/fi';
 import clsx from 'clsx';
+import { useIsMobile } from '@/hooks/useMediaQuery';
 
 export function BottomNavigation() {
   const router = useRouter();
   const pathname = usePathname();
+  const isMobile = useIsMobile();
 
   const navItems = [
     {
@@ -51,8 +53,16 @@ export function BottomNavigation() {
     }
   };
 
+  // Only render on mobile devices
+  if (!isMobile) {
+    return null;
+  }
+  
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 dark:bg-black border-t border-gray-700 flex justify-around items-center h-16 safe-area-bottom">
+    <nav 
+      className="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 dark:bg-black border-t border-gray-700 flex justify-around items-center h-16 safe-area-bottom"
+      data-testid="bottom-navigation"
+    >
       {navItems.map((item) => (
         <button
           key={item.label}
@@ -64,6 +74,7 @@ export function BottomNavigation() {
               : 'text-gray-400 hover:text-gray-200'
           )}
           aria-label={item.label}
+          data-testid={`bottom-nav-${item.label.toLowerCase()}`}
         >
           <item.icon className="w-5 h-5 mb-1" />
           <span>{item.label}</span>
