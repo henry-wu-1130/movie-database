@@ -38,9 +38,9 @@ jobs:
 
       - name: Start local server for Lighthouse
         run: |
-          npm run start & npx wait-on http://localhost:3000
+          npm run start & npx wait-on http://localhost:3000/en
 
       - name: Run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.13.x
-          lhci autorun --collect.url=http://localhost:3000
+          lhci autorun --collect.url=http://localhost:3000/en
