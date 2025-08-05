@@ -115,6 +115,6 @@ describe('MovieList', () => {
       />
     );
 
-    expect(screen.getByText(/no movies found/i)).toBeDefined();
+    expect(screen.getByText(/common.noResults/i)).toBeDefined();
   });
 });

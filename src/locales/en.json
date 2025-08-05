@@ -9,7 +9,9 @@
     "error": "Error",
     "retry": "Retry",
     "noImage": "No Image",
-    "watchlist": "Watchlist"
+    "watchlist": "Watchlist",
+    "errorLoading": "Error loading content",
+    "noResults": "No results found"
   },
   "home": {
     "popularMovies": "Popular Movies",

@@ -9,7 +9,9 @@
     "error": "錯誤",
     "retry": "重試",
     "noImage": "無圖片",
-    "watchlist": "待看清單"
+    "watchlist": "待看清單",
+    "errorLoading": "載入內容時發生錯誤",
+    "noResults": "找不到結果"
   },
   "home": {
     "popularMovies": "熱門電影",

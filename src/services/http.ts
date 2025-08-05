@@ -1,6 +1,5 @@
 import axios, { AxiosError } from 'axios';
-
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+import { TMDB_API_BASE_URL } from '@/constants/api';
 const TOKEN = process.env.NEXT_PUBLIC_TMDB_API_READ_ACCESS_TOKEN;
 
 if (!TOKEN) {
@@ -10,7 +9,7 @@ if (!TOKEN) {
 }
 
 const http = axios.create({
-  baseURL: TMDB_BASE_URL,
+  baseURL: TMDB_API_BASE_URL,
   headers: {
     Authorization: `Bearer ${TOKEN}`,
     'Content-Type': 'application/json',
