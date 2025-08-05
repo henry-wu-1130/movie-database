@@ -4,7 +4,7 @@ import {
   type UseQueryOptions,
   type UseInfiniteQueryOptions,
 } from '@tanstack/react-query';
-import * as tmdbValidated from '@/services/tmdbValidated';
+import * as API from '@/services/validatedApi';
 import { z } from 'zod';
 import {
   movieResponseSchema,
@@ -41,7 +41,7 @@ export function usePopularMoviesQuery(
 ) {
   return useQuery<MovieResponse, Error>({
     queryKey: ['tmdb', 'movies', 'popular', page, language],
-    queryFn: () => tmdbValidated.getPopularMovies(page, language),
+    queryFn: () => API.getPopularMovies(page, language),
     ...queryOptions,
   });
 }
@@ -54,7 +54,7 @@ export function useMovieDetailsQuery(
 ) {
   return useQuery<MovieDetail, Error>({
     queryKey: ['tmdb', 'movies', 'detail', id, language],
-    queryFn: () => tmdbValidated.getMovieDetails(id, language),
+    queryFn: () => API.getMovieDetails(id, language),
     ...queryOptions,
   });
 }
@@ -67,7 +67,7 @@ export function useMovieCreditsQuery(
 ) {
   return useQuery<MovieCredits, Error>({
     queryKey: ['tmdb', 'movies', 'credits', id, language],
-    queryFn: () => tmdbValidated.getMovieCredits(id, language),
+    queryFn: () => API.getMovieCredits(id, language),
     ...queryOptions,
   });
 }
@@ -80,7 +80,7 @@ export function useMovieVideosQuery(
 ) {
   return useQuery<MovieVideos, Error>({
     queryKey: ['tmdb', 'movies', 'videos', id, language],
-    queryFn: () => tmdbValidated.getMovieVideos(id, language),
+    queryFn: () => API.getMovieVideos(id, language),
     ...queryOptions,
   });
 }
@@ -94,7 +94,7 @@ export function useMovieReviewsQuery(
 ) {
   return useQuery<MovieReviews, Error>({
     queryKey: ['tmdb', 'movies', 'reviews', id, page, language],
-    queryFn: () => tmdbValidated.getMovieReviews(id, page, language),
+    queryFn: () => API.getMovieReviews(id, page, language),
     ...queryOptions,
   });
 }
@@ -108,7 +108,7 @@ export function useSearchMoviesQuery(
 ) {
   return useQuery<MovieResponse, Error>({
     queryKey: ['tmdb', 'search', 'movie', query, page, language],
-    queryFn: () => tmdbValidated.searchMovies(query, page, language),
+    queryFn: () => API.searchMovies(query, page, language),
     ...queryOptions,
     enabled: !!query && query.length > 0,
   });
@@ -126,7 +126,7 @@ export function useInfiniteSearchMoviesQuery(
   return useInfiniteQuery<MovieResponse, Error, number>({
     queryKey: ['tmdb', 'search', 'movie', 'infinite', query, language],
     queryFn: ({ pageParam = INITIAL_PAGE_PARAM }) =>
-      tmdbValidated.searchMovies(query, pageParam as number, language),
+      API.searchMovies(query, pageParam as number, language),
     initialPageParam: INITIAL_PAGE_PARAM,
     getNextPageParam: (lastPage) =>
       lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
@@ -143,7 +143,7 @@ export function useNowPlayingMoviesQuery(
 ) {
   return useQuery<MovieResponse, Error>({
     queryKey: ['tmdb', 'movies', 'now_playing', page, language],
-    queryFn: () => tmdbValidated.getNowPlaying(page, language),
+    queryFn: () => API.getNowPlaying(page, language),
     ...queryOptions,
   });
 }
@@ -156,10 +156,10 @@ export function useUpcomingMoviesQuery(
 ) {
   return useQuery<MovieResponse, Error>({
     queryKey: ['tmdb', 'movies', 'upcoming', page, language],
-    queryFn: () => tmdbValidated.getUpcoming(page, language),
+    queryFn: () => API.getUpcoming(page, language),
     ...queryOptions,
   });
 }
 
 // 圖片 URL 輔助函數
-export const getImageUrl = tmdbValidated.getImageUrl;
+export const getImageUrl = API.getImageUrl;

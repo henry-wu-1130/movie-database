@@ -21,24 +21,24 @@ const validatedHttp = {
   /**
    * 發送 POST 請求並驗證響應數據
    * @param url 請求 URL
-   * @param data 請求數據
+   * @param payload 請求數據
    * @param schema 用於驗證響應數據的 Zod schema
    * @returns 驗證後的響應數據
    */
-  async post<T>(url: string, data: unknown, schema: z.ZodType<T>) {
-    const response = await http.post(url, data);
+  async post<T>(url: string, payload: unknown, schema: z.ZodType<T>) {
+    const response = await http.post(url, payload);
     return validateData(schema, response.data);
   },
 
   /**
    * 發送 PUT 請求並驗證響應數據
    * @param url 請求 URL
-   * @param data 請求數據
+   * @param payload 請求數據
    * @param schema 用於驗證響應數據的 Zod schema
    * @returns 驗證後的響應數據
    */
-  async put<T>(url: string, data: unknown, schema: z.ZodType<T>) {
-    const response = await http.put(url, data);
+  async put<T>(url: string, payload: unknown, schema: z.ZodType<T>) {
+    const response = await http.put(url, payload);
     return validateData(schema, response.data);
   },
 

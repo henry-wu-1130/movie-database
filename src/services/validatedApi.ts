@@ -145,6 +145,7 @@ export const getUpcoming = async (page = 1, language?: string) => {
 
 /**
  * 獲取圖片 URL
+ * @deprecated
  */
 export const getImageUrl = (
   path: string | null,

@@ -7,7 +7,7 @@ import { useWatchlistStore } from '@/stores/watchlistStore';
 import SortSelect from '@/components/SortSelect';
 import { useLanguageStore } from '@/stores/languageStore';
 import { useQueries } from '@tanstack/react-query';
-import * as tmdbValidated from '@/services/tmdbValidated';
+import * as tmdbValidated from '@/services/validatedApi';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import {

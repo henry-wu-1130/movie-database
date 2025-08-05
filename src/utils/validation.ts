@@ -26,13 +26,15 @@ export function validateData<T>(schema: z.ZodType<T>, data: unknown): T {
  * @param data 要驗證的數據
  * @returns 驗證後的數據或 null
  */
-export function safeValidateData<T>(schema: z.ZodType<T>, data: unknown): T | null {
-  try {
-    return schema.parse(data);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      console.error('Data validation error:', error.format());
-    }
+export function safeValidateData<T>(
+  schema: z.ZodType<T>,
+  data: unknown
+): T | null {
+  const result = schema.safeParse(data);
+  if (!result.success) {
+    console.error('Data validation error:', result.error);
     return null;
+  } else {
+    return result.data;
   }
 }

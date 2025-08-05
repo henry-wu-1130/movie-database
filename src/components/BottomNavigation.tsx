@@ -16,21 +16,11 @@ export function BottomNavigation() {
       icon: FiHome,
       href: '/',
     },
-    // {
-    //   label: 'Search',
-    //   icon: FiSearch,
-    //   href: '/search',
-    // },
     {
       label: 'Watchlist',
       icon: FiBookmark,
       href: '/watchlist',
     },
-    // {
-    //   label: 'Profile',
-    //   icon: FiUser,
-    //   href: '/profile',
-    // },
   ];
 
   // Extract language from pathname
@@ -57,9 +47,9 @@ export function BottomNavigation() {
   if (!isMobile) {
     return null;
   }
-  
+
   return (
-    <nav 
+    <nav
       className="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 dark:bg-black border-t border-gray-700 flex justify-around items-center h-16 pb-safe-bottom"
       data-testid="bottom-navigation"
       style={{ transform: 'translateZ(0)' }} /* Force hardware acceleration */
@@ -70,7 +60,7 @@ export function BottomNavigation() {
           onClick={() => navigateTo(item.href)}
           className={clsx(
             'flex flex-col items-center justify-center w-full h-full text-xs',
-            'transform-none', /* Prevent transform on scroll */
+            'transform-none' /* Prevent transform on scroll */,
             isActive(item.href)
               ? 'text-white'
               : 'text-gray-400 hover:text-gray-200'
@@ -78,7 +68,9 @@ export function BottomNavigation() {
           aria-label={item.label}
           data-testid={`bottom-nav-${item.label.toLowerCase()}`}
         >
-          <item.icon className="w-5 h-5 mb-1 transform-none" /* Prevent icon shrinking */ />
+          <item.icon
+            className="w-5 h-5 mb-1 transform-none" /* Prevent icon shrinking */
+          />
           <span className="transform-none">{item.label}</span>
         </button>
       ))}
